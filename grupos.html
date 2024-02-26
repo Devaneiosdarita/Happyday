@@ -23,6 +23,14 @@
             justify-content: center; /* Centralizar horizontalmente */
             height: 100vh; /* Altura da página igual à altura da viewport */
         }
+        .btn-back {
+            background: none;
+            border: none;
+            padding: 0;
+            position: absolute;
+            bottom: -100px; /* Distância do botão até a parte inferior */
+            left: 2px; /* Distância do botão até a parte esquerda */
+        }
     </style>
 </head>
 <body>
@@ -49,6 +57,14 @@
                 <button type="button" class="btn btn-lg btn-primary btn-block custom-btn" onclick="guardarGrupo()">Guardar</button>
             </div>
         </div>
+        <div class="row mt-3">
+            <div class="col-md-12 text-center">
+                <!-- Botão de Voltar com Imagem -->
+                <button class="btn-back" onclick="voltarPagina()">
+                    <img src="botaovoltar.png" alt="Voltar" width="50">
+                </button>
+            </div>
+
     </div>
 
     <!-- Incluindo Bootstrap JS e dependências -->
@@ -67,6 +83,11 @@
                 $('#grupos-guardados').prepend(grupoHtml); // Usamos prepend para adicionar os grupos no topo
                 $('#campo').val('');
             }
+        }
+
+// Função para voltar para a página anterior
+        function voltarPagina() {
+            window.history.back();
         }
     </script>
 </body>
