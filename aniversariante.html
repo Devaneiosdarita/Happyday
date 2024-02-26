@@ -46,9 +46,34 @@
             bottom: -100px; /* Distância do botão até a parte inferior */
             left: 2px; /* Distância do botão até a parte esquerda */
         }
-        
 
-        
+        .dropdown-toggle {
+            background: url('boneco.png') no-repeat; /* Substitua 'caminho/para/sua/imagem.png' pelo caminho da sua imagem */
+            background-size: contain; /* Ajusta o tamanho da imagem */
+            width: 60px; /* Largura do botão */
+            height: 60px; /* Altura do botão */
+            border: none; /* Remove a borda do botão */
+            padding: 0; /* Remove o preenchimento interno do botão */
+           
+        }
+
+        .dropdown-toggle::after {
+            display: none; /* Oculta a seta padrão do botão dropdown */
+        }
+
+        .dropdown-menu {
+            width: auto !important; /* Ajusta a largura do menu conforme o conteúdo */
+        }
+
+        .dropdown-item {
+            color: #301C48; /* Cor do texto dos itens do menu suspenso */
+            background-color: #D1B6F2; /* Cor de fundo dos itens do menu suspenso */
+        }
+
+        .dropdown-item:hover {
+            background-color: #86719C; /* Cor de fundo dos itens do menu suspenso ao passar o cursor */
+        }
+              
     </style>
 </head>
 <body>
@@ -78,7 +103,15 @@
                     <button class="btn-back" onclick="voltarPagina()">
                         <img src="botaovoltar.png" alt="Voltar" width="50">
                     </button>
-                </div>
+            </div>
+            <div class="container mt-5">
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Definições do utilizador</a>
+                            <a class="dropdown-item" href="#">Apoio ao utilizador</a>
+                            <a class="dropdown-item" href="#">Logout</a>
+                        </div>
             
         </form>
     </div>
@@ -91,6 +124,11 @@
         function voltarPagina() {
             window.history.back();
         }
+        $(document).ready(function(){
+            $('.dropdown-toggle').on('click', function(e){
+                $(this).next('.dropdown-menu').toggle();
+            });
+        });
     </script>
 </body>
 </html>
