@@ -19,8 +19,6 @@
             background-color: #D1B6F2; /* Cor de fundo das caixas de texto */
 
         }
-
-        
         button.btn-primary {
             background-color: #301C48; /* Cor de fundo do botão "Guardar" */
             border-color: #301C48; /* Cor da borda do botão "Guardar" */
@@ -88,19 +86,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        function guardarGrupo() {
-            var nomeGrupo = $('#campo').val();
-            if (nomeGrupo.trim() !== '') {
-                var grupoHtml = `
-                    <div class="form-group">
-                        <input type="text" class="form-control" value="${nomeGrupo}" style="background-color: #7F7E26; color: #fff;">
-                    </div>
-                `;
-                $('#grupos-guardados').prepend(grupoHtml); // Usamos prepend para adicionar os grupos no topo
-                $('#campo').val('');
-            }
-        }
-
+       
 // Função para voltar para a página anterior
         function voltarPagina() {
             window.history.back();
