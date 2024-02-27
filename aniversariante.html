@@ -10,6 +10,8 @@
             background-color:#86719C ; /* Cor de fundo da página */
             align-items: center; /* Centralizar verticalmente */
             justify-content: center; /* Centralizar horizontalmente */
+            height: 100vh; /* Para ocupar a altura total da viewport */
+           
         }
         h2 {
             color: #ffffff; /* Cor do título da página */
@@ -45,7 +47,7 @@
             position: absolute;
             bottom: -100px; /* Distância do botão até a parte inferior */
             left: 2px; /* Distância do botão até a parte esquerda */
-        }
+        }    
 
         .dropdown-toggle {
             background: url('boneco.png') no-repeat; /* Substitua 'caminho/para/sua/imagem.png' pelo caminho da sua imagem */
@@ -63,6 +65,7 @@
 
         .dropdown-menu {
             width: auto !important; /* Ajusta a largura do menu conforme o conteúdo */
+            
         }
 
         .dropdown-item {
@@ -73,7 +76,14 @@
         .dropdown-item:hover {
             background-color: #86719C; /* Cor de fundo dos itens do menu suspenso ao passar o cursor */
         }
-              
+
+        .position-fixed-top-right {
+            position: fixed;
+            top: 20px;
+            right: 240px;
+            margin-right: 150px; /* Adiciona margem direita */
+        }
+        
     </style>
 </head>
 <body>
@@ -104,16 +114,14 @@
                         <img src="botaovoltar.png" alt="Voltar" width="50">
                     </button>
             </div>
-            <div class="container mt-5">
-                <div class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Definições do utilizador</a>
-                            <a class="dropdown-item" href="#">Apoio ao utilizador</a>
-                            <a class="dropdown-item" href="#">Logout</a>
-                        </div>
-            
-        </form>
+    <div class="dropdown position-fixed-top-right">
+        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Definições do utilizador</a>
+            <a class="dropdown-item" href="#">Apoio ao utilizador</a>
+            <a class="dropdown-item" href="#">Logout</a>
+        </div>
+
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
@@ -132,5 +140,4 @@
     </script>
 </body>
 </html>
-</body>
-</html>
+
