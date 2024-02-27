@@ -1,3 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário</title>
+    <style>
+        h2 {
+            color: #ffffff; /* Cor do título da página */
+        }
 
+        body {
+            background-color: #86719C; /* Cor de fundo da página */
+            display: flex;
+            align-items: left; /* Centralizar verticalmente */
+            justify-content: left; /* Centralizar horizontalmente */
+            
+        }
+
+        .btn-back {
+            background: none;
+            border: none;
+            padding: 0;
+            position: absolute;
+            bottom: -500px; /* Distância do botão até a parte inferior */
+            left: -550px; /* Distância do botão até a parte esquerda */
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 mt-5">
+                <h2 class="text-left">Calendário</h2>
+            </div>
+
+        <div class="row mt-3">
+            <div class="col-md-12 text-center">
+                    <!-- Botão de Voltar com Imagem -->
+                <button class="btn-back" onclick="voltarPagina()">
+                    <img src="botaovoltar.png" alt="Voltar" width="50">
+                </button>
+            </div>        
+    
+</body>
+</html>
 
 
