@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupos</title>
+    <style>
+        /* Estilizando o fundo do campo */
+        body {
+            background-color: #f2f1b6; /* Cor de fundo do campo */
+        }
+
+        h2 {
+            color: #ffffff; /* Cor do título da página */
+        }
+
+        h3 {
+            color: #ffffff; /* Cor do título da página */
+            margin-bottom: 2rem;
+        }
+       
+        /* Estilizando o botão de guardar */
+        .custom-btn {
+            background-color: #301C48; /* Cor de fundo do botão */
+            color: #fff; /* Cor do texto do botão */
+            border-color: #301C48; 
+            
+        }
+
+        button.btn-primary:hover {
+            background-color:#D1B6F2 ; /* Nova cor de fundo do botão ao passar o cursor */
+            border-color: #D1B6F2; /* Nova cor da borda do botão ao passar o cursor */
+        }
+        body {
+            background-color: #86719C; /* Cor de fundo da página */
+            display: flex;
+            align-items: center; /* Centralizar verticalmente */
+            justify-content: center; /* Centralizar horizontalmente */
+            
+        }
+        .btn-back {
+            background: none;
+            border: none;
+            padding: 0;
+            position: absolute;
+            bottom: -100px; /* Distância do botão até a parte inferior */
+            left: 285px; /* Distância do botão até a parte esquerda */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 mt-5">
+                <h2 class="text-center">Grupos</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-3 mt-5">
+                
+                <div id="grupos-guardados"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-3 mt-5">
+                <h3 class="text-center">Novo Grupo</h3>
+                <!-- Campo de texto -->
+                <div class="form-group">
+                    <input type="text" class="form-control custom-input" id="campo" placeholder="Digite aqui">
+                </div>
+                <!-- Botão Guardar -->
+                <button type="button" class="btn btn-lg btn-primary btn-block custom-btn" onclick="guardarGrupo()">Guardar</button>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12 text-center">
+                <!-- Botão de Voltar com Imagem -->
+                <button class="btn-back" onclick="voltarPagina()">
+                    <img src="botaovoltar.png" alt="Voltar" width="50">
+                </button>
+            </div>
+
+    </div>
+
+    <!-- Incluindo Bootstrap JS e dependências -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function guardarGrupo() {
+            var nomeGrupo = $('#campo').val();
+            if (nomeGrupo.trim() !== '') {
+                var grupoHtml = `
+                    <div class="form-group">
+                        <input type="text" class="form-control" value="${nomeGrupo}" style="background-color: #7F7E26; color: #fff;">
+                    </div>
+                `;
+                $('#grupos-guardados').prepend(grupoHtml); // Usamos prepend para adicionar os grupos no topo
+                $('#campo').val('');
+            }
+        }
+
+// Função para voltar para a página anterior
+        function voltarPagina() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
+
+
