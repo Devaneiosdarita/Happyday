@@ -6,37 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grupos</title>
     <style>
-        /* Estilizando o fundo do campo */
+       
         body {
-            background-color: #f2f1b6; /* Cor de fundo do campo */
+            background-color: #f2f1b6; 
         }
 
         h2 {
-            color: #ffffff; /* Cor do título da página */
+            color: #ffffff; 
         }
 
         h3 {
-            color: #ffffff; /* Cor do título da página */
+            color: #ffffff; 
             margin-bottom: 2rem;
         }
        
-        /* Estilizando o botão de guardar */
         .custom-btn {
-            background-color: #301C48; /* Cor de fundo do botão */
-            color: #fff; /* Cor do texto do botão */
+            background-color: #301C48; 
+            color: #fff; 
             border-color: #301C48; 
             
         }
 
         button.btn-primary:hover {
-            background-color:#D1B6F2 ; /* Nova cor de fundo do botão ao passar o cursor */
-            border-color: #D1B6F2; /* Nova cor da borda do botão ao passar o cursor */
+            background-color:#D1B6F2 ; 
+            border-color: #D1B6F2; 
         }
         body {
-            background-color: #86719C; /* Cor de fundo da página */
+            background-color: #86719C; 
             display: flex;
-            align-items: center; /* Centralizar verticalmente */
-            justify-content: center; /* Centralizar horizontalmente */
+            align-items: center; 
+            justify-content: center; 
             
         }
         .btn-back {
@@ -44,8 +43,8 @@
             border: none;
             padding: 0;
             position: absolute;
-            bottom: -100px; /* Distância do botão até a parte inferior */
-            left: 285px; /* Distância do botão até a parte esquerda */
+            bottom: -100px; 
+            left: 285px; 
         }
     </style>
 </head>
@@ -65,25 +64,22 @@
         <div class="row">
             <div class="col-md-6 offset-md-3 mt-5">
                 <h3 class="text-center">Novo Grupo</h3>
-                <!-- Campo de texto -->
+             
                 <div class="form-group">
                     <input type="text" class="form-control custom-input" id="campo" placeholder="Digite aqui">
                 </div>
-                <!-- Botão Guardar -->
+                
                 <button type="button" class="btn btn-lg btn-primary btn-block custom-btn" onclick="guardarGrupo()">Guardar</button>
             </div>
         </div>
         <div class="row mt-3">
             <div class="col-md-12 text-center">
-                <!-- Botão de Voltar com Imagem -->
                 <button class="btn-back" onclick="voltarPagina()">
                     <img src="botaovoltar.png" alt="Voltar" width="50">
                 </button>
             </div>
 
     </div>
-
-    <!-- Incluindo Bootstrap JS e dependências -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -96,12 +92,11 @@
                         <input type="text" class="form-control" value="${nomeGrupo}" style="background-color: #7F7E26; color: #fff;">
                     </div>
                 `;
-                $('#grupos-guardados').prepend(grupoHtml); // Usamos prepend para adicionar os grupos no topo
+                $('#grupos-guardados').prepend(grupoHtml); 
                 $('#campo').val('');
             }
         }
 
-// Função para voltar para a página anterior
         function voltarPagina() {
             window.history.back();
         }

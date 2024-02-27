@@ -7,37 +7,37 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
         body {
-            background-color:#86719C ; /* Cor de fundo da página */
-            align-items: center; /* Centralizar verticalmente */
-            justify-content: center; /* Centralizar horizontalmente */
-            height: 100vh; /* Para ocupar a altura total da viewport */
+            background-color:#86719C ; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh; 
            
         }
         h2 {
-            color: #ffffff; /* Cor do título da página */
+            color: #ffffff; 
         }
 
         input.form-control {
-            background-color: #D1B6F2; /* Cor de fundo das caixas de texto */
+            background-color: #D1B6F2; 
 
         }
         button.btn-primary {
-            background-color: #301C48; /* Cor de fundo do botão "Guardar" */
-            border-color: #301C48; /* Cor da borda do botão "Guardar" */
-            width: 100%; /* Largura total do botão */
-            font-size: 1.2rem; /* Tamanho da fonte do botão */
+            background-color: #301C48; 
+            border-color: #301C48; 
+            width: 100%; 
+            font-size: 1.2rem; 
         }
 
         button.btn-primary:hover {
-            background-color:#D1B6F2 ; /* Nova cor de fundo do botão ao passar o cursor */
-            border-color: #D1B6F2; /* Nova cor da borda do botão ao passar o cursor */
+            background-color:#D1B6F2 ; 
+            border-color: #D1B6F2; 
         }
 
         label {
-            color: #ffffff; /* Cor dos nomes dos campos */
+            color: #ffffff; 
             text-align: center;
             display: block;
-            margin-bottom: 1rem; /* Espaçamento abaixo do rótulo */
+            margin-bottom: 1rem; 
         }
         
         .btn-back {
@@ -45,43 +45,43 @@
             border: none;
             padding: 0;
             position: absolute;
-            bottom: -100px; /* Distância do botão até a parte inferior */
-            left: 2px; /* Distância do botão até a parte esquerda */
+            bottom: -100px; 
+            left: 2px; 
         }    
 
         .dropdown-toggle {
-            background: url('boneco.png') no-repeat; /* Substitua 'caminho/para/sua/imagem.png' pelo caminho da sua imagem */
-            background-size: contain; /* Ajusta o tamanho da imagem */
-            width: 60px; /* Largura do botão */
-            height: 60px; /* Altura do botão */
-            border: none; /* Remove a borda do botão */
-            padding: 0; /* Remove o preenchimento interno do botão */
+            background: url('boneco.png') no-repeat; 
+            background-size: contain; 
+            width: 60px; 
+            height: 60px; 
+            border: none; 
+            padding: 0; 
            
         }
 
         .dropdown-toggle::after {
-            display: none; /* Oculta a seta padrão do botão dropdown */
+            display: none; 
         }
 
         .dropdown-menu {
-            width: auto !important; /* Ajusta a largura do menu conforme o conteúdo */
+            width: auto !important; 
             
         }
 
         .dropdown-item {
-            color: #301C48; /* Cor do texto dos itens do menu suspenso */
-            background-color: #D1B6F2; /* Cor de fundo dos itens do menu suspenso */
+            color: #301C48; 
+            background-color: #D1B6F2; 
         }
 
         .dropdown-item:hover {
-            background-color: #86719C; /* Cor de fundo dos itens do menu suspenso ao passar o cursor */
+            background-color: #86719C; 
         }
 
         .position-fixed-top-right {
             position: fixed;
             top: 20px;
             right: 240px;
-            margin-right: 150px; /* Adiciona margem direita */
+            margin-right: 150px; 
         }
         
     </style>
@@ -109,7 +109,7 @@
             <button type="submit" class="btn btn-primary">Guardar</button>
             <div class="row mt-3">
                 <div class="col-md-12 text-center">
-                    <!-- Botão de Voltar com Imagem -->
+                    
                     <button class="btn-back" onclick="voltarPagina()">
                         <img src="botaovoltar.png" alt="Voltar" width="50">
                     </button>
@@ -128,7 +128,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
        
-// Função para voltar para a página anterior
         function voltarPagina() {
             window.history.back();
         }
