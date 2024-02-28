@@ -20,7 +20,7 @@ else:
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('new_user.html')
 
 @app.route('/cadastrar', methods=['POST'])
 def cadastrar():
