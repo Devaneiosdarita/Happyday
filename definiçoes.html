@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Definições do Utilizador</title>
+  <style>
+    body {
+      background-color: #D1B6F2;
+      color: #301C48;
+      font-family: Arial, sans-serif;
+    }
+    
+    h1 {
+      color: #D3B28F;
+      font-size: 24px;
+      margin-top: 20px;
+    }
+    
+    h2 {
+      color: #F2F1B6;
+      font-size: 18px;
+      margin-top: 10px;
+    }
+    
+    #container {
+      width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #86719C;
+      border-radius: 10px;
+    }
+    
+    #form {
+      margin-top: 20px;
+    }
+    
+    #form label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    
+    #form input {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #86719C;
+      border-radius: 5px;
+    }
+    
+    #form button {
+      margin-top: 10px;
+      padding: 5px 10px;
+      border: 1px solid #86719C;
+      border-radius: 5px;
+      background-color: #F2F1B6;
+      color: #301C48;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h1>Definições do Utilizador</h1>
+    <h2>Alice Pereira</h2>
+    <p>Alterar Password</p>
+    <form id="form">
+      <label for="password">Nova Password</label>
+      <input type="password" id="password" name="password">
+      <label for="confirm_password">Confirmação da nova Password</label>
+      <input type="password" id="confirm_password" name="confirm_password">
+      <button type="submit">Guardar</button>
+    </form>
+    <p><a href="#">Eliminar conta</a></p>
+  </div>
+</body>
+</html>
