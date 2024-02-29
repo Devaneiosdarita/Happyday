@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grupos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
-       
         body {
             background-color: #f2f1b6; 
         }
@@ -24,7 +23,6 @@
             background-color: #301C48; 
             color: #fff; 
             border-color: #301C48; 
-            
         }
 
         button.btn-primary:hover {
@@ -36,7 +34,6 @@
             display: flex;
             align-items: center; 
             justify-content: center; 
-            
         }
         .btn-back {
             background: none;
@@ -57,18 +54,15 @@
         </div>
         <div class="row">
             <div class="col-md-6 offset-md-3 mt-5">
-                
                 <div id="grupos-guardados"></div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6 offset-md-3 mt-5">
                 <h3 class="text-center">Novo Grupo</h3>
-             
                 <div class="form-group">
                     <input type="text" class="form-control custom-input" id="campo" placeholder="Digite aqui">
                 </div>
-                
                 <button type="button" class="btn btn-lg btn-primary btn-block custom-btn" onclick="guardarGrupo()">Guardar</button>
             </div>
         </div>
@@ -78,28 +72,48 @@
                     <img src="botaovoltar.png" alt="Voltar" width="50">
                 </button>
             </div>
-
+        </div>
     </div>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
+        // Função para guardar um novo grupo
         function guardarGrupo() {
-            var nomeGrupo = $('#campo').val();
-            if (nomeGrupo.trim() !== '') {
-                var grupoHtml = `
-                    <div class="form-group">
-                        <input type="text" class="form-control" value="${nomeGrupo}" style="background-color: #7F7E26; color: #fff;">
-                    </div>
-                `;
-                $('#grupos-guardados').prepend(grupoHtml); 
+            var nomeGrupo = $('#campo').val().trim();
+            if (nomeGrupo !== '') {
+                // Adiciona o novo grupo ao armazenamento local
+                var gruposGuardados = JSON.parse(localStorage.getItem('grupos')) || [];
+                gruposGuardados.push(nomeGrupo);
+                localStorage.setItem('grupos', JSON.stringify(gruposGuardados));
+                
+                // Atualiza a exibição dos grupos na página
+                exibirGrupos();
+                
                 $('#campo').val('');
             }
         }
 
+        // Função para exibir os grupos armazenados
+        function exibirGrupos() {
+            var gruposGuardados = JSON.parse(localStorage.getItem('grupos')) || [];
+            var html = '';
+            gruposGuardados.forEach(function(grupo) {
+                html += '<div class="form-group"><input type="text" class="form-control" value="' + grupo + '" style="background-color: #7F7E26; color: #fff;"></div>';
+            });
+            $('#grupos-guardados').html(html);
+        }
+
+        // Função para voltar à página anterior
         function voltarPagina() {
             window.history.back();
         }
+
+        // Exibir os grupos ao carregar a página
+        $(document).ready(function() {
+            exibirGrupos();
+        });
     </script>
 </body>
 </html>
