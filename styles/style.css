@@ -94,6 +94,7 @@ html .fc,
     font-weight: 100;
     margin-bottom: 10px;
 		font-family: 'Roboto', sans-serif;
+	color: #7F7E26;
 }
 	span.fc-button {
     font-family: 'Roboto', sans-serif;
@@ -292,7 +293,7 @@ html .fc,
 	filter: alpha(opacity=65);
 	box-shadow: none;
 	border:1px solid #B3B28F;
-	color: #7F7E26;
+	color: #27260c;
 	}
 
 	
@@ -664,7 +665,7 @@ thead tr.fc-first{
     background-color: #ffffff;
 }
 table.fc-header{
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     border-radius: 6px 6px 0 0;
 }
 
@@ -678,13 +679,13 @@ table.fc-header{
     height: 30px;
 }
 .fc-sun, .fc-sat{
-    color: #b8b8b8;
+    color: #919191;
 }
 
 .fc-week .fc-day:hover .fc-day-number{
     background-color:#7F7E26 ;
     border-radius: 50%;
-    color: #FFFFFF;
+    color: #ffffff;
     transition: background-color 0.2s;
 }
 .fc-week .fc-day.fc-state-highlight:hover .fc-day-number{
@@ -715,8 +716,8 @@ table.fc-header{
 -----------------------------------------------------*/
  
 .fc-event {
-	background: #fff !important;
-	color: #000 !important;
+	background: #ffffff !important;
+	color: #000000 !important;
 	}
 	
 /* for vertical events */
