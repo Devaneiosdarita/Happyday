@@ -43,6 +43,43 @@
             bottom: -100px; 
             left: 285px; 
         }
+        .dropdown-toggle {
+            background: url('boneco.png') no-repeat;
+            background-size: contain;
+            width: 60px;
+            height: 60px;
+            border: none;
+            padding: 0;
+
+        }
+
+        .dropdown-toggle::after {
+            display: none;
+        }
+
+        .dropdown-menu {
+            width: auto !important;
+
+        }
+
+        .dropdown-item {
+            color: #301C48;
+            background-color: #D1B6F2;
+        }
+
+        .dropdown-item:hover {
+            background-color: #86719C;
+        }
+
+        .position-fixed-top-right {
+            position: fixed;
+            top: 20px;
+            right: 240px;
+            margin-right: 150px;
+        }
+        select.form-control {
+            background-color: #ffffff;
+        }
     </style>
 </head>
 <body>
@@ -73,13 +110,19 @@
                 </button>
             </div>
         </div>
-    </div>
+        <div class="dropdown position-fixed-top-right">
+        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Defini√ß√µes do utilizador</a>
+            <a class="dropdown-item" href="#">Apoio ao utilizador</a>
+            <a class="dropdown-item" href="#">Logout</a>
+        </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        // FunÁ„o para guardar um novo grupo
+        // Fun√ß√£o para guardar um novo grupo
         function guardarGrupo() {
             var nomeGrupo = $('#campo').val().trim();
             if (nomeGrupo !== '') {
@@ -88,14 +131,14 @@
                 gruposGuardados.push(nomeGrupo);
                 localStorage.setItem('grupos', JSON.stringify(gruposGuardados));
                 
-                // Atualiza a exibiÁ„o dos grupos na p·gina
+                // Atualiza a exibi√ß√£o dos grupos na p√°gina
                 exibirGrupos();
                 
                 $('#campo').val('');
             }
         }
 
-        // FunÁ„o para exibir os grupos armazenados
+        // Fun√ß√£o para exibir os grupos armazenados
         function exibirGrupos() {
             var gruposGuardados = JSON.parse(localStorage.getItem('grupos')) || [];
             var html = '';
@@ -105,17 +148,20 @@
             $('#grupos-guardados').html(html);
         }
 
-        // FunÁ„o para voltar ‡ p·gina anterior
+        // Fun√ß√£o para voltar √† p√°gina anterior
         function voltarPagina() {
             window.history.back();
         }
+        $(document).ready(function(){
+            $('.dropdown-toggle').on('click', function(e){
+                $(this).next('.dropdown-menu').toggle();
+            });
 
-        // Exibir os grupos ao carregar a p·gina
+        // Exibir os grupos ao carregar a p√°gina
         $(document).ready(function() {
             exibirGrupos();
         });
+    });
     </script>
 </body>
 </html>
-
-
