@@ -1,85 +1,142 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apoio ao Utilizador</title>
-  <style>
-    body {
-      background-color: #86719C;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-    }
-    
-    h1 {
-      font-size: 24px;
-      margin-top: 20px;
-      text-align: center;
-    }
-    
-    h2 {
-      color: #D3B28F;
-      font-size: 18px;
-      margin-top: 10px;
-    }
-    
-    #container {
-      width: 400px;
-      margin: 0 auto;
-      padding: 20px;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center; /* Centraliza os itens horizontalmente */
-      height: 80vh;
-    }
-    
-    #form {
-      margin-top: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch; /* Estica os itens horizontalmente */
-    }
-    
-    #form label {
-      color: #ffffff;
-      display: block;
-      margin-bottom: 5px;
-    }
-    
-    #form input,
-    #form textarea {
-      width: 100%;
-      padding: 5px;
-      border: none;
-      border-radius: 5px;
-      background-color: #ffffff; /* Altera a cor de fundo para branco */
-      color: #301C48; /* Altera a cor do texto para preto */
-    }
-    
-    #form button {
-      margin-top: 10px;
-      padding: 5px 10px;
-      border: none;
-      border-radius: 5px;
-      background-color: #301C48;
-      color: #ffffff;
-      cursor: pointer;
-      width: 100%;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apoio ao Utilizador</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #86719C;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h2 {
+            color: #ffffff;
+        }
+
+        input.form-control,
+        textarea.form-control {
+            background-color: #ffffff;
+        }
+        
+        textarea.form-control {
+            resize: none; /* Impede o redimensionamento da caixa pelo utiizador */
+        }
+
+        button.btn-primary {
+            background-color: #301C48;
+            border-color: #301C48;
+            width: 100%;
+            font-size: 1.2rem;
+        }
+
+        button.btn-primary:hover {
+            background-color: #D1B6F2;
+            border-color: #D1B6F2;
+        }
+
+        label {
+            color: #ffffff;
+            text-align: left;
+            display: block;
+            margin-bottom: 1rem;
+            font-size: 1.2rem; /* Aumenta ligeiramente o tamanho da letra */
+        }
+
+        .btn-back {
+            background: none;
+            border: none;
+            padding: 0;
+            position: absolute;
+            bottom: -100px;
+            left: 2px;
+        }
+
+        .dropdown-toggle {
+            background: url('boneco.png') no-repeat;
+            background-size: contain;
+            width: 60px;
+            height: 60px;
+            border: none;
+            padding: 0;
+
+        }
+
+        .dropdown-toggle::after {
+            display: none;
+        }
+
+        .dropdown-menu {
+            width: auto !important;
+
+        }
+
+        .dropdown-item {
+            color: #301C48;
+            background-color: #D1B6F2;
+        }
+
+        .dropdown-item:hover {
+            background-color: #86719C;
+        }
+
+        .position-fixed-top-right {
+            position: fixed;
+            top: 20px;
+            right: 240px;
+            margin-right: 150px;
+        }
+        select.form-control {
+            background-color: #ffffff;
+        }
+    </style>
 </head>
 <body>
-  <div id="container">
-    <h1>Apoio ao Utilizador</h1>
-    <form id="form">
-      <label for="email">E-mail:</label>
-      <input type="email" id="email" name="email">
-      <label for="message">Escreva a sua mensagem:</label>
-      <textarea id="message" name="message" rows="5" cols="30"></textarea>
-      <button type="submit">Enviar</button>
-    </form>
-  </div>
+    <div class="col-md-6 offset-md-3 mt-5">
+        <h2 class="text-center">Apoio ao Utilizador</h2>
+        <form action="/enviar_problema" method="post">
+            <div class="form-group">
+                <label for="usuario" style="font-size: 1.2rem;">E-mail:</label> <!-- Aumenta ligeiramente o tamanho da letra -->
+                <input type="text" class="form-control" id="usuario" name="usuario" required>
+            </div>
+            <div class="form-group">
+                <label for="problema" style="font-size: 1.2rem;">Escreva a sua mensagem:</label> <!-- Aumenta ligeiramente o tamanho da letra -->
+                <textarea class="form-control" id="problema" name="problema" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+            <div class="row mt-3">
+                <div class="col-md-12 text-center">
+                    <button class="btn-back" onclick="voltarPagina()">
+                        <img src="botaovoltar.png" alt="Voltar" width="50">
+                    </button>
+                </div>
+            </div>
+            <div class="dropdown position-fixed-top-right">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Definições do utilizador</a>
+                    <a class="dropdown-item" href="#">Apoio ao utilizador</a>
+                    <a class="dropdown-item" href="#">Logout</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function voltarPagina() {
+            window.history.back();
+        }
+
+        $(document).ready(function(){
+            $('.dropdown-toggle').on('click', function(e){
+                $(this).next('.dropdown-menu').toggle();
+            });
+        });
+    </script>
 </body>
 </html>
