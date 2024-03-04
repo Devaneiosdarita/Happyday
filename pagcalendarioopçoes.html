@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css">
+   
+    <style>
+        h2 {
+            color: #ffffff;
+        }
+
+        body {
+            background-color: #86719C; 
+            display: flex;
+            align-items: left; 
+            justify-content: left; 
+            
+        }
+
+        .btn-back {
+            background: none;
+            border: none;
+            padding: 0;
+            position: absolute;
+            bottom: -5px; 
+            left: -1070px; 
+        }
+
+        .dropdown-toggle {
+            background: url('boneco.png') no-repeat; 
+            background-size: contain; 
+            width: 60px; 
+            height: 60px; 
+            border: none; 
+            padding: 0; 
+           
+        }
+
+        .dropdown-toggle::after {
+            display: none;
+        }
+
+        .dropdown-menu {
+            width: auto !important; 
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 0;
+            z-index: 1000;
+        }
+
+        .dropdown-item {
+            color: #301C48; 
+            background-color: #D1B6F2; 
+        }
+
+        .dropdown-item:hover {
+            background-color: #86719C; 
+        }
+
+        .position-fixed-top-right {
+            position: fixed;
+            top: 20px;
+            right: 240px;
+            margin-right: 150px; 
+        }
+
+        .new-dropdown-toggle {
+            background: url('botaofiltragem.png') no-repeat;
+            background-size: contain; 
+            width: 60px; 
+            height: 60px;
+            border: none; 
+            padding: 0; 
+            position: fixed;
+            top: 200px;
+            right: 240px;
+            margin-right: 150px; 
+        }
+
+        .new-dropdown-toggle::after {
+            display: none; 
+        }
+
+        .new-dropdown-menu {
+            width: auto !important; 
+            position: fixed;
+            top: 250px;
+            right: 240px;
+            margin-right: 150px;
+            margin-left: 950px;
+      
+          
+        }   
+          
+    </style>
+</head>
+<body>
+    
+            <div class="row mt-3">
+                <div class="col-md-12 text-center">
+                    <button class="btn-back" onclick="voltarPagina()">
+                        <img src="botaovoltar.png" alt="Voltar" width="50">
+                    </button>
+                </div>   
+            </div>
+
+            <div class="dropdown position-fixed-top-right">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Definições do utilizador</a>
+                    <a class="dropdown-item" href="#">Apoio ao utilizador</a>
+                    <a class="dropdown-item" href="#">Logout</a>
+                </div>
+            </div>
+                                                  
+            <div class="dropdown position-fixed-top-right">
+                <button class="btn btn-secondary new-dropdown-toggle" type="button" id="newFilterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-image: url('botaofiltragem.png')"></button>
+                
+                <table height="100" width="150" background="C:\Users\Fscru\Documents\GitHub\Happyday\fundoPurple.png" >
+                    <tr>
+                        <td>
+                            <p>
+                                Padrão: <input type="checkbox" name="colors" value="purple" /><br />
+                                Lista: <input type="checkbox" name="colors" value="purple" /><br />
+                                Todos: <input type="checkbox" name="colors" value="purple" /><br />
+            
+                            <select name="my_html_select_box">
+                                    <option>Grupos </option>
+                                    <option>Família</option>
+                                    <option>Amigos</option>                    
+                            </select> 
+                            <form method="post" action="post" >
+                                         
+                            <input type="submit" value="Aplicar" />
+                            </form>
+                            
+                            </p> 
+                        </td>
+                    </tr>
+                </table>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="styles/javascript.js"></script>
+    <script>
+        function voltarPagina() {
+            window.history.back();  
+        }
+
+        $(document).ready(function(){
+
+         
+            $('.dropdown-toggle').on('click', function(e){
+                $(this).next('.dropdown-menu').toggle();
+            });
+
+            $('.new-dropdown-toggle').on('click', function(e){
+                $(this).next('.new-dropdown-menu').toggle();
+            });
+        });
+    </script>
+</body>
+</html>
