@@ -1,1 +1,138 @@
-<h1>Ola! Bem vind@!</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem-vindo!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #86719C;
+        }
+
+        h1 {
+            color: #ffffff; 
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .container {
+            margin-top: 2rem;
+        }
+
+        .alert {
+            margin-top: 1rem;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.5rem;
+            margin-top: 1rem;
+            background-color: #f2f1b6;
+            color: #301C48;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #D1B6F2;
+        }
+
+        .btn-back {
+            background: none;
+            border: none;
+            padding: 0;
+            position: absolute;
+            bottom: -100px; 
+            left: 285px; 
+        }
+
+        .dropdown-toggle {
+            background: url('boneco.png') no-repeat; /* Ajuste do posicionamento da imagem */
+            background-size: contain;
+            width: 60px;
+            height: 60px;
+            border: none;
+            padding: 0;
+        }
+
+        .dropdown-toggle::after {
+            display: none;
+        }
+
+        .dropdown-menu {
+            width: auto !important;
+        }
+
+        .dropdown-item {
+            color: #301C48;
+            background-color: #D1B6F2;
+        }
+
+        .dropdown-item:hover {
+            background-color: #86719C;
+        }
+
+        .position-fixed-top-right {
+            position: fixed;
+            top: 20px;
+            right: 20px; /* Ajuste para o canto superior direito */
+        }
+
+        select.form-control {
+            background-color: #ffffff;
+        }
+
+        /* Adicionando a classe customizada para o botão Sair */
+        .btn-sair {
+            color: #f2f1b6;
+            background-color: #301C48; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h1>Bem-vindo, {{ usuario_nome }}!</h1>
+
+                 <!-- Aqui exibimos as mensagens flash -->
+                 {% with messages = get_flashed_messages(with_categories=true) %}
+                 {% if messages %}
+                     {% for category, message in messages %}
+                         <div class="alert alert-{{ category }}">
+                             {{ message }}
+                         </div>
+                     {% endfor %}
+                 {% endif %}
+             {% endwith %}
+             
+
+                <a class="btn btn-primary" href="{{ url_for('aniversariante') }}">Aniversários</a>
+                <a class="btn btn-primary" href="{{ url_for('grupos') }}">Grupos</a>
+                <a class="btn btn-primary" href="{{ url_for('calendariopadrao') }}">Calendário</a>
+
+                <form action="{{ url_for('logout') }}" method="get">
+                    <!-- Adicionando a classe personalizada ao botão Sair -->
+                    <button class="btn btn-sair" type="submit">Sair</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Movendo o dropdown para o canto superior direito -->
+    <div class="dropdown position-fixed-top-right">
+    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Definições do utilizador</a>
+            <a class="dropdown-item" href="#">Apoio ao utilizador</a>
+            <a class="dropdown-item" href="#">Logout</a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
