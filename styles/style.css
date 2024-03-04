@@ -156,35 +156,6 @@ html .fc,
 	overflow: hidden;
 	}
 	
-	
-
-/* Cell Styles
-------------------------------------------------------------------------*/
-
-    /* <th>, usually */
-.fc-widget-content {  /* <td>, usually */
-	border: 1px solid#B3B28F ;
-	}
-.fc-widget-header{
-    border-bottom: 1px solid #ffffff; 
-}	
-.fc-state-highlight { /* <td> today cell */ /* TODO: add .fc-today to <th> */
-	/* background: #fcf8e3; */
-}
-
-.fc-state-highlight > div > div.fc-day-number{
-    background-color: #B3B28F;
-    color: #ffffff;
-    border-radius: 50%;
-    margin: 4px;
-}
-	
-.fc-cell-overlay { /* semi-transparent rectangle while dragging */
-	background: #B3B28F;
-	opacity: .3;
-	filter: alpha(opacity=30); /* for IE */
-	}
-	
 
 
 /* Buttons
@@ -264,7 +235,7 @@ html .fc,
 .fc-state-down,
 .fc-state-active,
 .fc-state-disabled {
-	color: #7F7E26;
+	color: #0f0f07;
 	background-color: #FFE3E3;
 	}
 
