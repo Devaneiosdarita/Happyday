@@ -80,7 +80,8 @@
         }
 
         .new-dropdown-toggle::after {
-            display: none; 
+            display: none;
+            
         }
 
         .new-dropdown-menu {
@@ -90,10 +91,10 @@
             right: 240px;
             margin-right: 150px;
             margin-left: 950px;
-      
-          
-        }   
-          
+                
+        } 
+        
+        
     </style>
 </head>
 <body>
@@ -117,30 +118,32 @@
                                                   
             <div class="dropdown position-fixed-top-right">
                 <button class="btn btn-secondary new-dropdown-toggle" type="button" id="newFilterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-image: url('botaofiltragem.png')"></button>
-                
-                <table height="100" width="150" background="C:\Users\Fscru\Documents\GitHub\Happyday\fundoPurple.png" >
+                </div class="dropdown-toggle" aria-labelledby="newFilterDropdown">
+
+                <table height="100" width="150" background="fundoPurple.png" >
                     <tr>
                         <td>
                             <p>
-                                Padrão: <input type="checkbox" name="colors" value="purple" /><br />
-                                Lista: <input type="checkbox" name="colors" value="purple" /><br />
-                                Todos: <input type="checkbox" name="colors" value="purple" /><br />
+                                <a class="dropdown-item" href="#">Padrão: <input type="checkbox" name="colors" value="purple" /><br /></a>
+                                <a class="dropdown-item" href="#">Lista: <input type="checkbox" name="colors" value="purple" /><br /></a>
+                                <a class="dropdown-item" href="#">Todos: <input type="checkbox" name="colors" value="purple" /><br /></a>
             
-                            <select name="my_html_select_box">
+                                <a class="dropdown-item" href="#"><select name="my_html_select_box">
                                     <option>Grupos </option>
                                     <option>Família</option>
-                                    <option>Amigos</option>                    
-                            </select> 
-                            <form method="post" action="post" >
-                                         
+                                    <option>Amigos</option>               
+                            </select></a> 
+                            <a class="dropdown-item" href="#"><form method="post" action="post" >
+                                     
                             <input type="submit" value="Aplicar" />
-                            </form>
+                            </form></a>
                             
                             </p> 
                         </td>
                     </tr>
                 </table>
                             </select>
+                        </div>            
                         </div>
                     </form>
                 </div>
