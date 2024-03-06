@@ -101,5 +101,13 @@ def calendariopadrao():
 def grupos():
     return render_template('grupos.html')
 
+@app.route('/definicoes')
+def definicoes():
+    return render_template('definicoes.html')
+
+@app.route('/apoioaocliente')
+def apoioaocliente():
+    return render_template('apoioaocliente.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
