@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 import mysql.connector
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 app.secret_key = 'aviso'
 
 
