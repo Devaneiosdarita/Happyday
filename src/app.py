@@ -109,5 +109,9 @@ def definicoes():
 def apoioaocliente():
     return render_template('apoioaocliente.html')
 
+@app.route('/calendariolista')
+def calendariolista():
+    return render_template('calendariolista.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
