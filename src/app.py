@@ -4,6 +4,7 @@ import mysql.connector
 app = Flask(__name__)
 app.secret_key = 'aviso'
 
+
 # Conectar ao banco de dados MySQL
 db = mysql.connector.connect(
     host="localhost",
@@ -83,7 +84,30 @@ def registrar():
 
 @app.route('/main_page')
 def main_page():
-    return render_template('main_page.html')
+    if 'usuario_nome' in session:
+        return render_template('main_page.html', usuario_nome=session['usuario_nome'])
+    else:
+        return redirect(url_for('index'))
+    
+@app.route('/aniversariante')
+def aniversariante():
+    return render_template('aniversariante.html')
+
+@app.route('/calendariopadrao')
+def calendariopadrao():
+    return render_template('calendariopadrao.html')
+
+@app.route('/grupos')
+def grupos():
+    return render_template('grupos.html')
+
+@app.route('/definicoes')
+def definicoes():
+    return render_template('definicoes.html')
+
+@app.route('/apoioaocliente')
+def apoioaocliente():
+    return render_template('apoioaocliente.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
