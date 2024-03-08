@@ -89,21 +89,103 @@ def main_page():
     else:
         return redirect(url_for('index'))
     
-@app.route('/aniversariante')
+@app.route('/aniversariante', methods=['GET', 'POST'])
 def aniversariante():
+    if request.method == 'POST':
+        nome = request.form['nome']
+        grupo = request.form['grupo']
+        data_nascimento = request.form['data_nascimento']
+        observacoes = request.form['observacoes']
+
+        cursor = db.cursor()
+
+        try:
+            # Verifica se o aniversariante já existe no banco de dados
+            cursor.execute("SELECT * FROM ANIVERSARIO WHERE NOME = %s AND NASCIMENTO = %s", (nome, data_nascimento))
+            aniversariante_existente = cursor.fetchone()
+
+            if aniversariante_existente:
+                flash("Este aniversariante já foi adicionado anteriormente.", "warning")
+                return redirect(url_for('aniversariante'))
+
+            # Insere o novo aniversariante no banco de dados
+            cursor.execute("INSERT INTO ANIVERSARIO (NOME, ID_ANI_GRUPO, NASCIMENTO, OBSERVACOES) VALUES (%s, %s, %s, %s)", (nome, grupo, data_nascimento, observacoes))
+            db.commit()
+
+            flash("Aniversariante adicionado com sucesso.", "success")
+            return redirect(url_for('aniversariante'))
+
+        except mysql.connector.Error as err:
+            return f"Erro de programação: {err}"
+
     return render_template('aniversariante.html')
 
-@app.route('/calendariopadrao')
+    
+
+@app.route('/calendariopadrao', methods=['GET', 'POST'])
 def calendariopadrao():
+    
+
     return render_template('calendariopadrao.html')
 
-@app.route('/grupos')
+@app.route('/grupos', methods=['GET', 'POST'])
 def grupos():
-    return render_template('grupos.html')
+    if request.method == 'POST':
+        nome_grupo = request.form['nome_grupo']
+        id_usuario = session.get('usuario_id')  # Obtém o ID do usuário da sessão
+
+        cursor = db.cursor()
+
+        try:
+            # Inserir novo grupo no banco de dados
+            cursor.execute("INSERT INTO GRUPO (NOME_GRUPO, ID_GRU_USER) VALUES (%s, %s)", (nome_grupo, id_usuario))
+            db.commit()
+            flash("Grupo adicionado com sucesso.", "success")
+        except mysql.connector.Error as err:
+            flash(f"Erro ao adicionar grupo: {err}", "error")
+
+        cursor.close()
+        return redirect(url_for('grupos'))
+
+    if 'usuario_id' in session:
+        cursor = db.cursor()
+        cursor.execute("SELECT NOME_GRUPO FROM GRUPO WHERE ID_GRU_USER = %s", (session.get('usuario_id'),))
+        grupos_usuario = cursor.fetchall()
+        cursor.close()
+
+        return render_template('grupos.html', grupos_usuario=grupos_usuario)
+    else:
+        flash("Faça login para acessar esta página.", "warning")
+        return redirect(url_for('index'))
+
+
+
+
 
 @app.route('/definicoes')
 def definicoes():
     return render_template('definicoes.html')
+
+@app.route('/alterar_definicoes', methods=['POST'])
+def alterar_definicoes():
+    nova_senha = request.form['nova-password']
+    confirmar_senha = request.form['confirmar-nova-password']
+
+    if nova_senha != confirmar_senha:
+        flash("As senhas não coincidem. Por favor, tente novamente.", "error")
+        return redirect(url_for('definicoes'))
+
+    try:
+        usuario_id = session.get('usuario_id')
+        cursor = db.cursor()
+        cursor.execute("UPDATE USUARIO SET SENHA = %s WHERE ID_USER = %s", (nova_senha, usuario_id))
+        db.commit()
+        cursor.close()
+        flash("Senha alterada com sucesso.", "success")
+        return redirect(url_for('index'))
+    except mysql.connector.Error as err:
+        flash(f"Erro ao atualizar senha: {err}", "error")
+        return redirect(url_for('definicoes'))
 
 @app.route('/apoioaocliente')
 def apoioaocliente():

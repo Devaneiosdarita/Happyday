@@ -39,23 +39,11 @@
             margin-bottom: 1rem;
         }
 
-        .btn-back {
-            background: none;
-            border: none;
-            padding: 0;
-            position: absolute;
-            bottom: -100px;
-            left: 2px;
-        }
-
-        .dropdown-toggle {
-            background: url('img/boneco.png') no-repeat;
-            background-size: contain;
-            width: 60px;
-            height: 60px;
-            border: none;
-            padding: 0;
-
+        .button-container {
+        position: absolute;
+        bottom: -100px; /* ajuste conforme necessário */
+        left: 15px; /* ajuste conforme necessário */
+        z-index: 999; /* opcional: ajuste conforme necessário */
         }
 
         .dropdown-toggle::after {
@@ -90,7 +78,7 @@
 <body>
     <div class="col-md-6 offset-md-3 mt-5">
         <h2 class="text-center">Aniversariante</h2>
-        <form action="/guardar_dados" method="post">
+        <form action="/aniversariante" method="post">
             <div class="form-group">
                 <label for="nome">Nome:</label>
                 <input type="text" class="form-control" id="nome" name="nome" required>
@@ -107,16 +95,18 @@
                 <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" required>
             </div>
             <div class="form-group">
-                <label for="observações">Observações:</label>
-                <input type="text" class="form-control" id="observações" name="observações">
+                <label for="observacoes">Observações:</label>
+                <input type="text" class="form-control" id="observacoes" name="observacoes">
             </div>
             <button type="submit" class="btn btn-primary">Guardar</button>
-            <div class="row mt-3">
-                <div class="col-md-12 text-center">
-                    <button class="btn-back" onclick="voltarPagina()">
-                        <img src="img/botaovoltar.png" alt="Voltar" width="50">
-                    </button>
-                </div>
+            <div class="row mt-3 button-container">
+                <a href="main_page">
+                    <div style="color: #301C48;padding: 3px; border-radius: 50%;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="#301C48" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+                        </svg>
+                    </div>   
+                </a>
             </div>
             <!-- Adicionando item menu --> 
             <div class="dropdown position-fixed-top-right">
