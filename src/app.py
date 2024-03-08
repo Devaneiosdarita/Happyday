@@ -105,6 +105,27 @@ def grupos():
 def definicoes():
     return render_template('definicoes.html')
 
+@app.route('/alterar_definicoes', methods=['POST'])
+def alterar_definicoes():
+    nova_senha = request.form['nova-password']
+    confirmar_senha = request.form['confirmar-nova-password']
+
+    if nova_senha != confirmar_senha:
+        flash("As senhas não coincidem. Por favor, tente novamente.", "error")
+        return redirect(url_for('definicoes'))
+
+    try:
+        usuario_id = session.get('usuario_id')
+        cursor = db.cursor()
+        cursor.execute("UPDATE USUARIO SET SENHA = %s WHERE ID_USER = %s", (nova_senha, usuario_id))
+        db.commit()
+        cursor.close()
+        flash("Senha alterada com sucesso.", "success")
+        return redirect(url_for('index'))
+    except mysql.connector.Error as err:
+        flash(f"Erro ao atualizar senha: {err}", "error")
+        return redirect(url_for('definicoes'))
+
 @app.route('/apoioaocliente')
 def apoioaocliente():
     return render_template('apoioaocliente.html')
