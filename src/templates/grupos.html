@@ -36,10 +36,10 @@
             justify-content: center; 
         }
         .button-container {
-        position: absolute;
-        bottom: 100px; /* ajuste conforme necessário */
-        left: 500px; /* ajuste conforme necessário */
-        z-index: 999; /* opcional: ajuste conforme necessário */
+            position: absolute;
+            bottom: 100px; /* ajuste conforme necessário */
+            left: 500px; /* ajuste conforme necessário */
+            z-index: 999; /* opcional: ajuste conforme necessário */
         }
 
         .dropdown-toggle {
@@ -49,7 +49,6 @@
             height: 60px;
             border: none;
             padding: 0;
-
         }
 
         .dropdown-toggle::after {
@@ -58,7 +57,6 @@
 
         .dropdown-menu {
             width: auto !important;
-
         }
 
         .dropdown-item {
@@ -88,18 +86,17 @@
                 <h2 class="text-center">Grupos</h2>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6 offset-md-3 mt-5">
-                <div id="grupos-guardados"></div>
-            </div>
-        </div>
+        <!-- Adicionar grupos aqui -->
+        <div id="grupos-container" class="col-md-6 offset-md-3 mt-5"></div>
         <div class="row">
             <div class="col-md-6 offset-md-3 mt-5">
                 <h3 class="text-center">Novo Grupo</h3>
-                <div class="form-group">
-                    <input type="text" class="form-control custom-input" id="campo" placeholder="Digite aqui">
-                </div>
-                <button type="button" class="btn btn-lg btn-primary btn-block custom-btn" onclick="guardarGrupo()">Guardar</button>
+                <form id="novo-grupo-form">
+                    <div class="form-group">
+                        <input type="text" class="form-control custom-input" id="campo" name="nome_grupo" placeholder="Digite aqui">
+                    </div>
+                    <button type="button" class="btn btn-lg btn-primary btn-block custom-btn" onclick="guardarGrupo()">Guardar</button>
+                </form>
             </div>
         </div>
         <div class="row mt-3 button-container">
@@ -124,59 +121,59 @@
                 <a class="dropdown-item" href="/logout">Logout</a>
             </div>
         </div>
-        
+    </div>
 
-            <script>
-                // Adicionando um evento de clique no ícone para exibir o menu suspenso
-                document.querySelector('.dropdown').addEventListener('click', function () {
-                    document.querySelector('.dropdown-menu').classList.toggle('show');
-                });
-            </script>
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <script>
         // Função para guardar um novo grupo
         function guardarGrupo() {
             var nomeGrupo = $('#campo').val().trim();
             if (nomeGrupo !== '') {
-                // Adiciona o novo grupo ao armazenamento local
-                var gruposGuardados = JSON.parse(localStorage.getItem('grupos')) || [];
-                gruposGuardados.push(nomeGrupo);
-                localStorage.setItem('grupos', JSON.stringify(gruposGuardados));
-                
-                // Atualiza a exibição dos grupos na página
-                exibirGrupos();
-                
-                $('#campo').val('');
+                $.ajax({
+                    url: '/grupos',
+                    method: 'POST',
+                    data: {nome_grupo: nomeGrupo},
+                    success: function(response) {
+                        // Atualiza a exibição dos grupos na página
+                        exibirGrupos();
+                        $('#campo').val('');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
             }
         }
-
+    
         // Função para exibir os grupos armazenados
         function exibirGrupos() {
-            var gruposGuardados = JSON.parse(localStorage.getItem('grupos')) || [];
-            var html = '';
-            gruposGuardados.forEach(function(grupo) {
-                html += '<div class="form-group"><input type="text" class="form-control" value="' + grupo + '" style="background-color: #7F7E26; color: #fff;"></div>';
+            $.ajax({
+                url: '/grupos',
+                method: 'GET',
+                success: function(response) {
+                    var html = '';
+                    response.forEach(function(grupo) {
+                        html += '<div class="col-md-6 offset-md-3 mt-3"><div class="form-group"><input type="text" class="form-control" value="' + grupo[0] + '" style="background-color: #7F7E26; color: #fff;"></div></div>';
+                    });
+                    $('#grupos-container').html(html);
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
             });
-            $('#grupos-guardados').html(html);
         }
-
-        // Função para voltar à página anterior
-        function voltarPagina() {
-            window.history.back();
-        }
-        $(document).ready(function(){
+    
+        $(document).ready(function() {
             $('.dropdown-toggle').on('click', function(e){
                 $(this).next('.dropdown-menu').toggle();
             });
-
-        // Exibir os grupos ao carregar a página
-        $(document).ready(function() {
+    
+            // Exibir os grupos ao carregar a página
             exibirGrupos();
         });
-    });
     </script>
 </body>
 </html>
