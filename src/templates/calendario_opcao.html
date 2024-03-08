@@ -94,7 +94,30 @@
                 
         } 
         
-        
+    .custom-button {
+    background-color: transparent; /* Remove default button background */
+    border: none; /* Remove default button border */
+    padding: 10px 20px; /* Adjust padding as needed */
+    cursor: pointer; /* Indicate clickable behavior */
+    display: flex; /* Allow stacking of icon and text */
+    align-items: center; /* Align content vertically */
+}
+
+.custom-button img {
+    /* Style your background image here */
+    width: 20px; /* Adjust image size as needed */
+    margin-right: 10px; /* Add space between icon and text */
+}
+
+.custom-button span {
+    /* Style your button text here */
+    color: rgba(109, 151, 12, 0.425); /* Adjust text color as needed */
+}
+
+.hidden {
+    display: none;
+}
+
     </style>
 </head>
 <body>
@@ -120,29 +143,33 @@
                 <button class="btn btn-secondary new-dropdown-toggle" type="button" id="newFilterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-image: url('botaofiltragem.png')"></button>
                 </div class="dropdown-toggle" aria-labelledby="newFilterDropdown">
 
+                <button id="myButton" class="custom-button">
+                    <img src="fundoPurple.png" alt="Purple background">
+                    <span>Click me (Icon included)</span> </button>
+                
+                <div id="buttonContent">
                 <table height="100" width="150" background="fundoPurple.png" >
                     <tr>
                         <td>
                             <p>
                                 <a class="dropdown-item" href="#">Padrão: <input type="checkbox" name="colors" value="purple" /><br /></a>
-                                <a class="dropdown-item" href="#">Lista: <input type="checkbox" name="colors" value="purple" /><br /></a>
-                                <a class="dropdown-item" href="#">Todos: <input type="checkbox" name="colors" value="purple" /><br /></a>
-            
+                                <a class="dropdown-item" href="#">Lista: <input type="checkbox" name="colors" value="purple" /><br /></a>     
                                 <a class="dropdown-item" href="#"><select name="my_html_select_box">
-                                    <option>Grupos </option>
+                                    <option>Grupos</option>
                                     <option>Família</option>
-                                    <option>Amigos</option>               
+                                    <option>Amigos</option>   
+                                    <option>Todos</option>             
                             </select></a> 
-                            <a class="dropdown-item" href="#"><form method="post" action="post" >
-                                     
+                            <a class="dropdown-item" href="#"><form method="post" action="post" >                                     
                             <input type="submit" value="Aplicar" />
                             </form></a>
                             
                             </p> 
                         </td>
                     </tr>
+                </select>
                 </table>
-                            </select>
+                      </div>
                         </div>            
                         </div>
                     </form>
@@ -156,6 +183,15 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="styles/javascript.js"></script>
     <script>
+
+    const button = document.getElementById('myButton');
+    const content = document.getElementById('buttonContent');
+
+    button.addEventListener('click', () => {
+        content.classList.toggle('hidden'); // Add/remove hidden class on click
+    });
+
+
         function voltarPagina() {
             window.history.back();  
         }
