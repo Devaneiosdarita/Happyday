@@ -129,24 +129,27 @@
 
     <script>
         // Função para guardar um novo grupo
-        function guardarGrupo() {
-            var nomeGrupo = $('#campo').val().trim();
-            if (nomeGrupo !== '') {
-                $.ajax({
-                    url: '/grupos',
-                    method: 'POST',
-                    data: {nome_grupo: nomeGrupo},
-                    success: function(response) {
-                        // Atualiza a exibição dos grupos na página
-                        exibirGrupos();
-                        $('#campo').val('');
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(xhr.responseText);
-                    }
-                });
+        // Função para guardar um novo grupo
+function guardarGrupo() {
+    var nomeGrupo = $('#campo').val().trim();
+    if (nomeGrupo !== '') {
+        $.ajax({
+            url: '/grupos',
+            method: 'POST',
+            data: {nome_grupo: nomeGrupo},
+            success: function(response) {
+                // Atualiza a exibição dos grupos na página
+                
+                $('#campo').val('');
+                exibirGrupos();
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
             }
-        }
+        });
+    }
+}
+
     
         // Função para exibir os grupos armazenados
         function exibirGrupos() {
