@@ -45,13 +45,11 @@
             font-size: 1.2rem; /* Aumenta ligeiramente o tamanho da letra */
         }
 
-        .btn-back {
-            background: none;
-            border: none;
-            padding: 0;
+        .button-container {
             position: absolute;
-            bottom: -100px;
-            left: 2px;
+            bottom: -100px; /* ajuste conforme necessário */
+            left: 15px; /* ajuste conforme necessário */
+            z-index: 999; /* opcional: ajuste conforme necessário */
         }
 
         .dropdown-toggle {
@@ -106,12 +104,14 @@
                 <textarea class="form-control" id="problema" name="problema" rows="5" required></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Enviar</button>
-            <div class="row mt-3">
-                <div class="col-md-12 text-center">
-                    <button class="btn-back" onclick="voltarPagina()" formnovalidate>
-                        <img src="botaovoltar.png" alt="Voltar" width="50">
-                    </button>
-                </div>
+            <div class="row mt-3 button-container">
+                <a href="main_page">
+                    <div style="color: #301C48;padding: 3px; border-radius: 50%;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="#301C48" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+                        </svg>
+                    </div>   
+                </a>
             </div>
             <div class="dropdown position-fixed-top-right">
                 <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
