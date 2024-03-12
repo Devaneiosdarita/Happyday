@@ -171,7 +171,7 @@ def grupos():
 
 @app.route('/definicoes')
 def definicoes():
-    return render_template('definicoes.html')
+    return render_template('definicoes.html', usuario_nome=session['usuario_nome'])
 
 @app.route('/alterar_definicoes', methods=['POST'])
 def alterar_definicoes():
