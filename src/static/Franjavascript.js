@@ -12,13 +12,11 @@
  
 (function($, undefined) {
 
-
-    ;;
     
     var defaults = {
     
         // display
-        defaultView: 'Basic Day',
+        defaultView: 'agendaDay',
         aspectRatio: 1.35,
         header: {
             left: 'title',
