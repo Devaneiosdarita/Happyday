@@ -91,6 +91,7 @@ def main_page():
     
 @app.route('/aniversariante', methods=['GET', 'POST'])
 def aniversariante():
+    usuario_id = session.get('usuario_id')  # Obtém o ID do usuário logado
     if request.method == 'POST':
         nome = request.form['nome']
         grupo = request.form['grupo']
@@ -107,18 +108,23 @@ def aniversariante():
             if aniversariante_existente:
                 flash("Este aniversariante já foi adicionado anteriormente.", "warning")
                 return redirect(url_for('aniversariante'))
-
+            else:
             # Insere o novo aniversariante no banco de dados
-            cursor.execute("INSERT INTO ANIVERSARIO (NOME, ID_ANI_GRUPO, NASCIMENTO, OBSERVACOES) VALUES (%s, %s, %s, %s)", (nome, grupo, data_nascimento, observacoes))
-            db.commit()
+                cursor.execute("INSERT INTO ANIVERSARIO (NOME, NASCIMENTO, OBSERVACOES, ID_ANI_GRUPO, ID_ANI_USER) VALUES (%s, %s, %s, %s, %s)", (nome, data_nascimento, observacoes, grupo, usuario_id))
+                db.commit()
 
-            flash("Aniversariante adicionado com sucesso.", "success")
-            return redirect(url_for('aniversariante'))
+                flash("Aniversariante adicionado com sucesso.", "success")
+                return redirect(url_for('aniversariante'))
 
         except mysql.connector.Error as err:
             return f"Erro de programação: {err}"
+            
 
-    return render_template('aniversariante.html')
+    # Carrega os grupos do banco de dados
+
+    grupos=return_grupos()
+
+    return render_template('aniversariante.html', grupos=grupos)
 
     
 
@@ -160,13 +166,19 @@ def adicionar_grupo():
 
 @app.route('/grupos', methods=['GET', 'POST'])
 def grupos():
+    grupos=return_grupos()
+    return render_template('grupos.html', grupos=grupos)
+
+
+def return_grupos():
     cursor = db.cursor()
     usuario_id = session.get('usuario_id')  # Obtém o ID do usuário logado
-    cursor.execute("SELECT * FROM GRUPO WHERE ID_GRU_USER = %s", (usuario_id,))
+    print("ID do usuário logado:", usuario_id) 
+    cursor.execute("SELECT ID_GRUPO, NOME_GRUPO FROM GRUPO WHERE ID_GRU_USER = %s", (usuario_id,))
     grupos = cursor.fetchall()
-    cursor.close()
+    cursor.close() 
     
-    return render_template('grupos.html', grupos=grupos)
+    return grupos
 
 
 @app.route('/definicoes')
