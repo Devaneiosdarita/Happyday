@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grupos</title>
@@ -37,9 +38,9 @@
         }
         .button-container {
             position: absolute;
-            bottom: 100px; /* ajuste conforme necessário */
-            left: 500px; /* ajuste conforme necessário */
-            z-index: 999; /* opcional: ajuste conforme necessário */
+            bottom: 100px; 
+            left: 500px; 
+            z-index: 999;
         }
 
         .dropdown-toggle {
@@ -77,6 +78,15 @@
         select.form-control {
             background-color: #ffffff;
         }
+
+        #grupos-container p {
+            background-color: #f2f1b6; /* Cor de fundo */
+            color:#7f7e26;
+            padding: 10px; /* Espaçamento interno */
+            border-radius: 5px; /* Borda arredondada */
+            margin-bottom: 10px; /* Espaçamento inferior */
+            text-align: center; /* Centraliza o texto */
+        }
     </style>
 </head>
 <body>
@@ -86,16 +96,21 @@
                 <h2 class="text-center">Grupos</h2>
             </div>
         </div>
-        <!-- Adicionar grupos aqui -->
-        <div id="grupos-container" class="col-md-6 offset-md-3 mt-5"></div>
+        <!-- Lista de grupos existentes -->
+        <div id="grupos-container" class="col-md-6 offset-md-3 mt-5">
+            {% for grupo in grupos %}
+                <p>{{ grupo[1] }}</p>
+            {% endfor %}
+        </div>
+        <!-- Formulário para adicionar novo grupo -->
         <div class="row">
             <div class="col-md-6 offset-md-3 mt-5">
                 <h3 class="text-center">Novo Grupo</h3>
-                <form id="novo-grupo-form">
+                <form id="novo-grupo-form" action="/adicionar_grupo" method="POST">
                     <div class="form-group">
                         <input type="text" class="form-control custom-input" id="campo" name="nome_grupo" placeholder="Digite aqui">
                     </div>
-                    <button type="button" class="btn btn-lg btn-primary btn-block custom-btn" onclick="guardarGrupo()">Guardar</button>
+                    <button type="submit" class="btn btn-lg btn-primary btn-block custom-btn" onclick="adicionar_grupo()">Guardar</button>
                 </form>
             </div>
         </div>
@@ -108,7 +123,8 @@
                 </div>   
             </a>
         </div>
-        <!-- Adicionando item menu --> 
+
+         <!-- Adicionando item menu --> 
         <div class="dropdown position-fixed-top-right">
             <div style="background-color: #B3B28F; padding: 3px; border-radius: 50%;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="60" height="50" fill="#7F7E26" class="bi bi-person" viewBox="0 0 16 16">
@@ -119,6 +135,7 @@
                 <a class="dropdown-item" href="/definicoes">Definições do utilizador</a>
                 <a class="dropdown-item" href="/apoioaocliente">Apoio ao utilizador</a>
                 <a class="dropdown-item" href="/logout">Logout</a>
+        
             </div>
         </div>
     </div>
@@ -126,57 +143,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <script>
-        // Função para guardar um novo grupo
-        // Função para guardar um novo grupo
-function guardarGrupo() {
-    var nomeGrupo = $('#campo').val().trim();
-    if (nomeGrupo !== '') {
-        $.ajax({
-            url: '/grupos',
-            method: 'POST',
-            data: {nome_grupo: nomeGrupo},
-            success: function(response) {
-                // Atualiza a exibição dos grupos na página
-                
-                $('#campo').val('');
-                exibirGrupos();
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
-            }
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+        Swal.fire({
+            icon: '{{ category }}',
+            title: '{{ message }}'
         });
-    }
-}
-
-    
-        // Função para exibir os grupos armazenados
-        function exibirGrupos() {
-            $.ajax({
-                url: '/grupos',
-                method: 'GET',
-                success: function(response) {
-                    var html = '';
-                    response.forEach(function(grupo) {
-                        html += '<div class="col-md-6 offset-md-3 mt-3"><div class="form-group"><input type="text" class="form-control" value="' + grupo[0] + '" style="background-color: #7F7E26; color: #fff;"></div></div>';
-                    });
-                    $('#grupos-container').html(html);
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                }
-            });
-        }
-    
-        $(document).ready(function() {
-            $('.dropdown-toggle').on('click', function(e){
-                $(this).next('.dropdown-menu').toggle();
-            });
-    
-            // Exibir os grupos ao carregar a página
-            exibirGrupos();
-        });
+        {% endfor %}
+        {% endwith %}
     </script>
+    
 </body>
 </html>

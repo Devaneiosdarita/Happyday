@@ -66,6 +66,30 @@
             margin-right: 150px; 
         }
 
+        .custom-button {
+            background-color: transparent; /* Remove default button background */
+            border: none; /* Remove default button border */
+            padding: 10px 20px; /* Adjust padding as needed */
+            cursor: pointer; /* Indicate clickable behavior */
+            display: flex; /* Allow stacking of icon and text */
+            align-items: center; /* Align content vertically */
+        }
+ 
+        .custom-button img {
+            color: rgba(109, 151, 12, 0.425);/* Style your background image here */
+            width: 60px; /* Adjust image size as needed */
+            margin-right: 10px; /* Add space between icon and text */
+        }
+
+        .custom-button span {
+            /* Style your button text here */
+            color: rgba(109, 151, 12, 0.425); /* Adjust text color as needed */
+        }
+
+        .hidden {
+            display: none;
+        }
+
         .new-dropdown-toggle {
             background: url('botaofiltragem.png') no-repeat;
             background-size: contain; 
@@ -194,22 +218,38 @@
                 </script>
 
             <div class="dropdown position-fixed-top-right">
-                <button class="btn btn-secondary new-dropdown-toggle" type="button" id="newFilterDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-image: url('botaofiltragem.png')"></button>
-                <div class="dropdown-menu new-dropdown-menu" aria-labelledby="newFilterDropdown">
                 
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookshelf" viewBox="0 0 16 16">
-                <path d="M2.5 0a.5.5 0 0 1 .5.5V2h10V.5a.5.5 0 0 1 1 0v15a.5.5 0 0 1-1 0V15H3v.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5M3 14h10v-3H3zm0-4h10V7H3zm0-4h10V3H3z"/>
-                </svg>
+                    <button id="myButton" class="custom-button">
+                    <div style="background-color: #ce4cc7da; padding: 30px; border-radius: 50%;"></div>   
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookshelf" viewBox="0 0 16 16">
+                    <path d="M2.5 0a.5.5 0 0 1 .5.5V2h10V.5a.5.5 0 0 1 1 0v15a.5.5 0 0 1-1 0V15H3v.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5M3 14h10v-3H3zm0-4h10V7H3zm0-4h10V3H3z"/>
+                    </svg>
+                    <span><i class="bi bi-bookshelf"></i></span> </button>
+                
+                <div id="buttonContent">
+                <table height="100" width="150" background="fundoPurple.png" >
+                    <tr>
+                        <td>
+                            <p>
+                                <a class="dropdown-item" href="#">Padrão: <input type="checkbox" name="colors" value="purple" /><br /></a>
+                                <a class="dropdown-item" href="#">Lista: <input type="checkbox" name="colors" value="purple" /><br /></a>     
+                                <a class="dropdown-item" href="#"><select name="my_html_select_box">
+                                    <option>Grupos</option>
+                                    <option>Família</option>
+                                    <option>Amigos</option>   
+                                    <option>Todos</option>             
+                            </select></a> 
+                            <a class="dropdown-item" href="#"><form method="post" action="post" >                                     
+                            <input type="submit" value="Aplicar" />
+                            </form></a>
+                            
+                            </p> 
+                        </td>
+                    </tr>
+                </select>
+                </table>
+                      </div>    
 
-                    <form>
-                        <div class="form-group">
-                            <label for="newFilterOptions"></label>
-                            <select multiple class="form-control" id="newFilterOptions">
-                                <option>Padrão</option>
-                                <option>Lista</option>
-                            </select>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
@@ -220,6 +260,14 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{{ url_for('static', filename='Franjavascript.js') }}"></script>
     <script>
+
+    const button = document.getElementById('myButton');
+    const content = document.getElementById('buttonContent');
+
+    button.addEventListener('click', () => {
+        content.classList.toggle('hidden'); // Add/remove hidden class on click
+    }); 
+
         function voltarPagina() {
             window.history.back();  
         }

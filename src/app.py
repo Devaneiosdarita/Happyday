@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
 import mysql.connector
 
 app = Flask(__name__, static_folder='static')
@@ -9,7 +9,7 @@ app.secret_key = 'aviso'
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="",
+    password="1234",
     database="happyday"
 )
 
@@ -91,6 +91,7 @@ def main_page():
     
 @app.route('/aniversariante', methods=['GET', 'POST'])
 def aniversariante():
+    usuario_id = session.get('usuario_id')  # Obtém o ID do usuário logado
     if request.method == 'POST':
         nome = request.form['nome']
         grupo = request.form['grupo']
@@ -107,18 +108,23 @@ def aniversariante():
             if aniversariante_existente:
                 flash("Este aniversariante já foi adicionado anteriormente.", "warning")
                 return redirect(url_for('aniversariante'))
-
+            else:
             # Insere o novo aniversariante no banco de dados
-            cursor.execute("INSERT INTO ANIVERSARIO (NOME, ID_ANI_GRUPO, NASCIMENTO, OBSERVACOES) VALUES (%s, %s, %s, %s)", (nome, grupo, data_nascimento, observacoes))
-            db.commit()
+                cursor.execute("INSERT INTO ANIVERSARIO (NOME, NASCIMENTO, OBSERVACOES, ID_ANI_GRUPO, ID_ANI_USER) VALUES (%s, %s, %s, %s, %s)", (nome, data_nascimento, observacoes, grupo, usuario_id))
+                db.commit()
 
-            flash("Aniversariante adicionado com sucesso.", "success")
-            return redirect(url_for('aniversariante'))
+                flash("Aniversariante adicionado com sucesso.", "success")
+                return redirect(url_for('aniversariante'))
 
         except mysql.connector.Error as err:
             return f"Erro de programação: {err}"
+            
 
-    return render_template('aniversariante.html')
+    # Carrega os grupos do banco de dados
+
+    grupos=return_grupos()
+
+    return render_template('aniversariante.html', grupos=grupos)
 
     
 
@@ -128,43 +134,56 @@ def calendariopadrao():
 
     return render_template('calendariopadrao.html')
 
-@app.route('/grupos', methods=['GET', 'POST'])
-def grupos():
+@app.route('/adicionar_grupo', methods=['POST'])
+def adicionar_grupo():
+    # Get usuario id da sessão
+    usuario_id = session.get('usuario_id')
+    
     if request.method == 'POST':
         nome_grupo = request.form['nome_grupo']
-        id_usuario = session.get('usuario_id')  # Obtém o ID do usuário da sessão
 
         cursor = db.cursor()
 
         try:
-            # Inserir novo grupo no banco de dados
-            cursor.execute("INSERT INTO GRUPO (NOME_GRUPO, ID_GRU_USER) VALUES (%s, %s)", (nome_grupo, id_usuario))
-            db.commit()
-            flash("Grupo adicionado com sucesso.", "success")
+            # Verifica se o grupo já existe
+            cursor.execute("SELECT * FROM GRUPO WHERE NOME_GRUPO = %s", (nome_grupo,))
+            grupo_existente = cursor.fetchone()
+
+            if grupo_existente:
+                flash("O grupo já existe.", "error")
+                return redirect(url_for('grupos'))
+
+            else:
+                # Insere o novo grupo no banco de dados
+                cursor.execute("INSERT INTO GRUPO (NOME_GRUPO, ID_GRU_USER) VALUES (%s,%s)", (nome_grupo,usuario_id))
+                db.commit()
+                cursor.close()
+                flash("Novo grupo adicionado com sucesso.", "success")
+                return redirect(url_for('grupos'))
+
         except mysql.connector.Error as err:
-            flash(f"Erro ao adicionar grupo: {err}", "error")
+            flash(f"Erro de programação: {err}", "error")
 
-        cursor.close()
-        return redirect(url_for('grupos'))
-
-    if 'usuario_id' in session:
-        cursor = db.cursor()
-        cursor.execute("SELECT NOME_GRUPO FROM GRUPO WHERE ID_GRU_USER = %s", (session.get('usuario_id'),))
-        grupos_usuario = cursor.fetchall()
-        cursor.close()
-
-        return render_template('grupos.html', grupos_usuario=grupos_usuario)
-    else:
-        flash("Faça login para acessar esta página.", "warning")
-        return redirect(url_for('index'))
+@app.route('/grupos', methods=['GET', 'POST'])
+def grupos():
+    grupos=return_grupos()
+    return render_template('grupos.html', grupos=grupos)
 
 
-
+def return_grupos():
+    cursor = db.cursor()
+    usuario_id = session.get('usuario_id')  # Obtém o ID do usuário logado
+    print("ID do usuário logado:", usuario_id) 
+    cursor.execute("SELECT ID_GRUPO, NOME_GRUPO FROM GRUPO WHERE ID_GRU_USER = %s", (usuario_id,))
+    grupos = cursor.fetchall()
+    cursor.close() 
+    
+    return grupos
 
 
 @app.route('/definicoes')
 def definicoes():
-    return render_template('definicoes.html')
+    return render_template('definicoes.html', usuario_nome=session['usuario_nome'])
 
 @app.route('/alterar_definicoes', methods=['POST'])
 def alterar_definicoes():

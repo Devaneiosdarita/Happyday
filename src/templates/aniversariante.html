@@ -84,10 +84,12 @@
                 <input type="text" class="form-control" id="nome" name="nome" required>
             </div>
             <!-- Adicione uma combobox para os grupos -->
-            <div class="form-group">
-                <label for="grupo">Grupo:</label>
+            <div class="container">
+                <label for="nome">Grupo:</label>
                 <select class="form-control" id="grupo" name="grupo" required>
-                    <!-- As opções serão preenchidas dinamicamente -->
+                    {% for grupo in grupos %}
+                    <option value="{{ grupo[0] }}">{{ grupo[1] }}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="form-group">
@@ -143,13 +145,6 @@
                 $(this).next('.dropdown-menu').toggle();
             });
 
-            // Recupera os grupos do armazenamento local e preenche a combobox
-            var gruposGuardados = JSON.parse(localStorage.getItem('grupos')) || [];
-            var select = $('#grupo');
-            gruposGuardados.forEach(function(grupo) {
-                select.append('<option value="' + grupo + '">' + grupo + '</option>');
-            });
-        });
-    </script>
+            
 </body>
 </html>
