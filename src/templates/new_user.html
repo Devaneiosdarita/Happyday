@@ -82,5 +82,18 @@
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+        Swal.fire({
+            icon: '{{ category }}',
+            title: '{{ message }}'
+        });
+        {% endfor %}
+        {% endwith %}
+    </script>
 </body>
 </html>
