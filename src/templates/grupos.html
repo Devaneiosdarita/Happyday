@@ -87,6 +87,12 @@
             margin-bottom: 10px; /* Espaçamento inferior */
             text-align: center; /* Centraliza o texto */
         }
+
+        span{
+            color: #22D4FD;
+            border: 1px solid #22D4FD;
+            padding: 10px;
+        }
     </style>
 </head>
 <body>
@@ -105,7 +111,7 @@
         <!-- Formulário para adicionar novo grupo -->
         <div class="row">
             <div class="col-md-6 offset-md-3 mt-5">
-                <h3 class="text-center">Novo Grupo</h3>
+                <h3 class="text-center">Adicione um novo grupo:</h3>
                 <form id="novo-grupo-form" action="/adicionar_grupo" method="POST">
                     <div class="form-group">
                         <input type="text" class="form-control custom-input" id="campo" name="nome_grupo" placeholder="Digite aqui">

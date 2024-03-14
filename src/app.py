@@ -146,7 +146,7 @@ def adicionar_grupo():
 
         try:
             # Verifica se o grupo já existe
-            cursor.execute("SELECT * FROM GRUPO WHERE NOME_GRUPO = %s", (nome_grupo,))
+            cursor.execute("SELECT * FROM GRUPO WHERE NOME_GRUPO = %s AND ID_GRU_USER =	%s", (nome_grupo, usuario_id))
             grupo_existente = cursor.fetchone()
 
             if grupo_existente:
