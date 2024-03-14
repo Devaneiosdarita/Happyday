@@ -19,7 +19,7 @@ td.fc-today {
 
 .fc-first th{
 	font-family: 'Roboto', sans-serif;
-    background:#9675ce !important;
+    background:#B3B28F !important;
 	color:#FFF;
 	font-size:14px !important;
 	font-weight:500 !important;
@@ -27,7 +27,7 @@ td.fc-today {
 	}
 .fc-event-inner {
 	font-family: 'Roboto', sans-serif;
-    background: #03a9f3!important;
+    background: #B3B28F !important;
     color: #FFF!important;
     font-size: 12px!important;
     font-weight: 500!important;
@@ -97,11 +97,11 @@ html .fc,
 }
 	span.fc-button {
     font-family: 'Roboto', sans-serif;
-    border-color: #9675ce;
-	color: #9675ce;
+    border-color: #B3B28F;
+	color: #B3B28F;
 }
 .fc-state-down, .fc-state-active {
-    background-color: #9675ce !important;
+    background-color: #7F7E26 !important;
 	color: #FFF !important;
 }
 .fc .fc-header-space {

@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Franstyle.css') }}">
     <title>Calendário</title>
     <style>
@@ -88,6 +91,8 @@
 
         .hidden {
             display: none;
+            margin-top: 73px;
+            margin-right: 130px;
         }
 
         .new-dropdown-toggle {
@@ -167,7 +172,20 @@
         -moz-box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
         box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
 		}
-   
+
+        
+        .fc-button{
+            background-color: #fff;
+        }
+
+        .fc-button-prev:hover{
+            background-color: #ffe3e3;
+        }
+
+        .fc-button-next:hover{
+            background-color: #ffe3e3;
+        }
+        
     </style>
 </head>
 <body>
@@ -207,7 +225,19 @@
                     <a class="dropdown-item" href="/apoioaocliente">Apoio ao utilizador</a>
                     <a class="dropdown-item" href="/logout">Logout</a>
                 </div>
+                
             </div>
+
+            <div class="dropdown position-fixed-top-right" style="top: 133px;right: 221px;">
+            <button id="myButton" class="custom-button">
+                       
+                <div style="background-color: #B3B28F;">
+                    <i class="fa fa-bars" style="color: #D1B6F2;padding: 20px;font-size: 28px;"></i>
+                </div>                   
+            </button>
+        </div>
+
+        
             
 
                 <script>
@@ -217,38 +247,38 @@
                     });
                 </script>
 
-            <div class="dropdown position-fixed-top-right">
+
+
+
+            <div class="dropdown position-fixed-top-right" style="margin-top: 190px;margin-right: -3px;">
                 
-                    <button id="myButton" class="custom-button">
-                    <div style="background-color: #ce4cc7da; padding: 30px; border-radius: 50%;"></div>   
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookshelf" viewBox="0 0 16 16">
-                    <path d="M2.5 0a.5.5 0 0 1 .5.5V2h10V.5a.5.5 0 0 1 1 0v15a.5.5 0 0 1-1 0V15H3v.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 .5-.5M3 14h10v-3H3zm0-4h10V7H3zm0-4h10V3H3z"/>
-                    </svg>
-                    <span><i class="bi bi-bookshelf"></i></span> </button>
+                  
                 
-                <div id="buttonContent">
-                <table height="100" width="150" background="fundoPurple.png" >
-                    <tr>
-                        <td>
-                            <p>
-                                <a class="dropdown-item" href="#">Padrão: <input type="checkbox" name="colors" value="purple" /><br /></a>
-                                <a class="dropdown-item" href="#">Lista: <input type="checkbox" name="colors" value="purple" /><br /></a>     
-                                <a class="dropdown-item" href="#"><select name="my_html_select_box">
-                                    <option>Grupos</option>
-                                    <option>Família</option>
-                                    <option>Amigos</option>   
-                                    <option>Todos</option>             
-                            </select></a> 
-                            <a class="dropdown-item" href="#"><form method="post" action="post" >                                     
-                            <input type="submit" value="Aplicar" />
-                            </form></a>
-                            
-                            </p> 
-                        </td>
-                    </tr>
-                </select>
-                </table>
-                      </div>    
+                <div id="buttonContent" class="hidden" style="border: 2px solid #301C48; padding: 32px; background-color: #301C48;">
+                    <table height="100" width="150" style="margin-right: 0px; background-color: #301C48;">
+                        <tr>
+                            <td>
+                                <p>
+                                    <a class="dropdown-item" href="#">Padrão: <input type="checkbox" name="colors" value="purple" /><br /></a>
+                                    <a class="dropdown-item" href="#">Lista: <input type="checkbox" name="colors" value="purple" /><br /></a>
+                                    <a class="dropdown-item" href="#">
+                                        <select name="my_html_select_box">
+                                            <option>Grupos</option>
+                                            <option>Família</option>
+                                            <option>Amigos</option>
+                                            <option>Todos</option>
+                                        </select>
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                        <form method="post" action="post">
+                                            <input type="submit" value="Aplicar" />
+                                        </form>
+                                    </a>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>   
 
                 </div>
             </div>
