@@ -203,29 +203,31 @@
                 
                 <div style='clear:both'></div>
             </div>
-
-
-            <div class="row mt-3">
-                <div class="col-md-12 text-center">
-                    <button class="btn-back" onclick="voltarPagina()">
-                        <img src="botaovoltar.png" alt="Voltar" width="50">
-                    </button>
+              
+                    <div class="row mt-3 button-container">
+                      <div class="col-md-12 text-center">
+                        <a href="main_page">
+                            <div style="color: #301C48;padding: 3px; border-radius: 50%;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="#301C48" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"></path>
+                                </svg>
+                            </div>   
+                        </a>
+                    </div>
                 </div>   
-            </div>
-
+           
              <!-- Adicionando item menu --> 
-             <div class="dropdown position-fixed-top-right">
+            <div class="dropdown position-fixed-top-right">
                 <div style="background-color: #B3B28F; padding: 3px; border-radius: 50%;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="60" height="50" fill="#7F7E26" class="bi bi-person" viewBox="0 0 16 16">
                         <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
                     </svg>
                 </div>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="/definicoes">Definições do utilizador</a>
                     <a class="dropdown-item" href="/apoioaocliente">Apoio ao utilizador</a>
                     <a class="dropdown-item" href="/logout">Logout</a>
                 </div>
-                
             </div>
 
             <div class="dropdown position-fixed-top-right" style="top: 133px;right: 221px;">
@@ -237,9 +239,7 @@
             </button>
         </div>
 
-        
             
-
                 <script>
                     // Adicionando um evento de clique no ícone para exibir o menu suspenso
                     document.querySelector('.dropdown').addEventListener('click', function () {
@@ -248,12 +248,9 @@
                 </script>
 
 
-
-
             <div class="dropdown position-fixed-top-right" style="margin-top: 190px;margin-right: -3px;">
-                
-                  
-                
+            
+                    
                 <div id="buttonContent" class="hidden" style="border: 2px solid #301C48; padding: 32px; background-color: #301C48;">
                     <table height="100" width="150" style="margin-right: 0px; background-color: #301C48;">
                         <tr>
@@ -284,7 +281,7 @@
             </div>
         </div>
     </div>
-    
+  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
