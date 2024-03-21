@@ -119,7 +119,6 @@ def aniversariante():
         except mysql.connector.Error as err:
             return f"Erro de programação: {err}"
             
-
     # Carrega os grupos do banco de dados
 
     grupos=return_grupos()
@@ -130,8 +129,7 @@ def aniversariante():
 
 @app.route('/calendariopadrao', methods=['GET', 'POST'])
 def calendariopadrao():
-    
-
+      
     return render_template('calendariopadrao.html')
 
 @app.route('/adicionar_grupo', methods=['POST'])
