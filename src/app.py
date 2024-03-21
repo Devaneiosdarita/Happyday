@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
 import mysql.connector
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 app = Flask(__name__, static_folder='static')
 app.secret_key = 'aviso'
@@ -9,7 +12,7 @@ app.secret_key = 'aviso'
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="",
+    password="1234",
     database="happyday"
 )
 
@@ -207,6 +210,57 @@ def alterar_definicoes():
 @app.route('/apoioaocliente')
 def apoioaocliente():
     return render_template('apoioaocliente.html')
+
+@app.route('/enviar_problema', methods=['POST'])
+def enviar_problema():
+    assunto_formulario = request.form['assunto']
+    mensagem_formulario = request.form['mensagem']
+    usuario_id = session.get('usuario_id')
+    # Compor o assunto do e-mail com o ID do usuário
+    assunto_email = f'ID do Usuário: {usuario_id}'
+
+    # Configurar o corpo do e-mail com o assunto e a mensagem do formulário
+    corpo_email = f'<p><strong>Assunto:</strong><br>{assunto_formulario}</p><p><strong>Mensagem:</strong><br>{mensagem_formulario}</p>'
+
+    # Localização do arquivo que contém a senha
+    caminho_arquivo_senha = "C:/Users/User/Desktop/happyday.txt"
+
+    # Tente abrir o arquivo e ler a senha
+    try:
+        with open(caminho_arquivo_senha, 'r') as arquivo:
+            senha = arquivo.read().strip()  # Ler o conteúdo do arquivo e remover espaços em branco extras
+    except FileNotFoundError:
+        flash("Falha no envio.", "error")
+        return redirect(url_for('apoioaocliente'))
+
+    # Configurar os detalhes do servidor SMTP e as credenciais do remetente
+    remetente_email = 'joaofonseca19990@gmail.com'
+    destinatario_email = 'josemalves1992@gmail.com'
+
+    # Configurar o servidor SMTP do Gmail
+    servidor_smtp = smtplib.SMTP('smtp.gmail.com', 587)
+    servidor_smtp.starttls()
+
+    # Faça login no servidor SMTP
+    servidor_smtp.login(remetente_email, senha)
+
+    # Compor o e-mail
+    msg = MIMEMultipart()
+    msg['From'] = remetente_email
+    msg['To'] = destinatario_email
+    msg['Subject'] = assunto_email
+
+    # Adicionar corpo do e-mail
+    msg.attach(MIMEText(corpo_email, 'html'))  # Definindo o tipo de conteúdo como HTML
+
+    # Enviar o e-mail
+    servidor_smtp.send_message(msg)
+
+    # Fechar a conexão com o servidor SMTP
+    servidor_smtp.quit()
+
+    flash("Solicitação de suporte enviada com sucesso!", "success")
+    return redirect(url_for('apoioaocliente'))
 
 @app.route('/calendariolista')
 def calendariolista():
