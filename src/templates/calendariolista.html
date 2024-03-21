@@ -8,6 +8,7 @@
 
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Franstyle.css') }}">
+    <!--<link rel="stylesheet" type="text/css" href="../static/Franstyle.css">-->
     <title>Calendário</title>
     <style>
         h2 {
@@ -20,6 +21,40 @@
             align-items: left; 
             justify-content: left; 
             
+        }
+
+        .button-container {
+            position: absolute;
+            bottom: -50px; /* ajuste conforme necessário */
+            left: 30px; /* ajuste conforme necessário */
+            z-index: 999; /* opcional: ajuste conforme necessário */
+        }
+
+        .dropdown-toggle::after {
+            display: none;
+        }
+
+        .btn-back {
+            background: none;
+            border: none;
+            padding: 0;
+            position: absolute;
+            bottom: -5px; 
+            left: -1070px; 
+        }
+
+        .dropdown-toggle {
+            background: url('boneco.png') no-repeat; 
+            background-size: contain; 
+            width: 60px; 
+            height: 60px; 
+            border: none; 
+            padding: 0; 
+           
+        }
+
+        .dropdown-toggle::after {
+            display: none;
         }
 
         .dropdown-menu {
@@ -44,27 +79,6 @@
             top: 20px;
             right: 240px;
             margin-right: 150px; 
-        }
-
-        .dropdown-toggle::after {
-            display: none;
-        }
-
-        .dropdown-menu {
-            width: auto !important; 
-            position: absolute;
-            top: calc(100% + 10px);
-            left: 0;
-            z-index: 1000;
-        }
-
-        .dropdown-item {
-            color: #301C48; 
-            background-color: #D1B6F2; 
-        }
-
-        .dropdown-item:hover {
-            background-color: #86719C; 
         }
 
         .position-fixed-top-right {
@@ -124,7 +138,7 @@
             right: 240px;
             margin-right: 150px;
             margin-left: 950px;
-             
+              
         }   
         
         #wrap {
@@ -167,7 +181,7 @@
 
 	    #calendar { /* float: right; */
             margin: 0 auto;
-	   	    width: 900px;
+		    width: 900px;
 		    background-color: #FFFFFF;
 		    border-radius: 6px;
             box-shadow: 0 1px 2px #C3C3C3;
@@ -175,16 +189,16 @@
             -moz-box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
             box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
 		}
-        
-        .fc-button{
+       
+        .fc-button {
             background-color: #fff;
         }
 
-        .fc-button-prev:hover{
+        .fc-button-prev:hover {
             background-color: #ffe3e3;
         }
 
-        .fc-button-next:hover{
+        .fc-button-next:hover {
             background-color: #ffe3e3;
         }
         
@@ -194,30 +208,9 @@
 
      <div class="container">
         <div class="row">
-            <div class="col-md-6 offset-md-3 mt-5">
-                <h2 class="text-left">Calendário</h2>
-            </div>
 
+            <header style="margin-bottom: 14%;">
 
-            <div id='wrap'>
-
-                <div id='calendar'></div>
-                
-                <div style='clear:both'></div>
-            </div>
-              
-                    <div class="row mt-3 button-container">
-                      <div class="col-md-12 text-center">
-                        <a href="main_page">
-                            <div style="color: #301C48;padding: 3px; border-radius: 50%;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="#301C48" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"></path>
-                                </svg>
-                            </div>   
-                        </a>
-                    </div>
-                </div>   
-           
              <!-- Adicionando item menu --> 
              <div class="dropdown position-absolute-top-right">
                 <div style="background-color: #B3B28F; padding: 3px; border-radius: 50%;">
@@ -231,16 +224,44 @@
                     <a class="dropdown-item" href="/logout">Logout</a>
                 </div>
             </div>
-
-            <div class="dropdown position-fixed-top-right" style="top: 133px;right: 221px;">
-            <button id="myButton" class="custom-button">
-                       
-                <div style="background-color: #B3B28F;">
-                    <i class="fa fa-bars" style="color: #D1B6F2;padding: 20px;font-size: 28px;"></i>
-                </div>                   
-            </button>
+                 
+             </div>
+         
+             <div class="dropdown position-fixed-top-right" style="top: 94px;right: 221px;">
+             <button id="myButton" class="custom-button">
+                        
+                 <div style="background-color: #B3B28F;">
+                     <i class="fa fa-bars" style="color: #D1B6F2;padding: 20px;font-size: 28px;"></i>
+                 </div>                   
+             </button>
+             </div>
+                     </header>
         </div>
-           
+
+        <div class="row">
+            <div class="col-md-6 offset-md-3 mt-5">
+                <h2 class="text-left">Calendário</h2>
+            </div>
+
+
+            <div id='wrap'>
+
+                <div id='calendar'></div>
+                
+                <div style='clear:both'></div>
+            </div>
+
+            <div class="row mt-3 button-container position-absolute-down-left">
+                <a href="main_page">
+                    <div style="color: #301C48;padding: 3px; border-radius: 50%;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="#301C48" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+                        </svg>
+                    </div>   
+                </a>
+            </div>     
+        
+     
                 <script>
                     // Adicionando um evento de clique no ícone para exibir o menu suspenso
                     document.querySelector('.dropdown').addEventListener('click', function () {
@@ -248,9 +269,13 @@
                     });
                 </script>
 
-            <div class="dropdown position-fixed-top-right" style="margin-top: 190px;margin-right: -3px;">
-            
-                    
+
+
+
+            <div class="dropdown position-fixed-top-right" style="margin-top: 152px;margin-right: -3px;    z-index: 1000;">
+                
+                  
+                
                 <div id="buttonContent" class="hidden" style="border: 2px solid #301C48; padding: 32px; background-color: #301C48;">
                     <table height="100" width="150" style="margin-right: 0px; background-color: #301C48;">
                         <tr>
@@ -276,15 +301,17 @@
                         </tr>
                     </table>
                 </div>   
+
                 </div>
             </div>
         </div>
     </div>
-  
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{{ url_for('static', filename='Franjavascript.js') }}"></script>
+    <!--<script src="../static/Franjavascript.js"></script>-->
     <script>
 
     const button = document.getElementById('myButton');
@@ -342,13 +369,13 @@
 		var calendar =  $('#calendar').fullCalendar({
 			header: {
 				left: 'title',
-				center: 'agendaDay',
+				center: 'basicWeek',
 				right: 'prev,next today'
 			},
 			editable: true,
 			firstDay: 1, //  1(Monday) this can be changed to 0(Sunday) for the USA system
 			selectable: true,
-			defaultView: 'agendaDay',
+			defaultView: 'basicWeek',
 			
 			axisFormat: 'h:mm',
 			columnFormat: {
