@@ -16,7 +16,7 @@
     var defaults = {
     
         // display
-        defaultView: 'agendaDay',
+        defaultView: 'basicWeek',
         aspectRatio: 1.35,
         header: {
             left: 'title',
