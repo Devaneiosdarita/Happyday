@@ -24,9 +24,9 @@
         
         .button-container {
         position: absolute;
-        bottom: 10px; /* ajuste conforme necessÃ¡rio */
-        left: 30px; /* ajuste conforme necessÃ¡rio */
-        z-index: 999; /* opcional: ajuste conforme necessÃ¡rio */
+        bottom: 10px; /* ajuste conforme necessário */
+        left: 30px; /* ajuste conforme necessário */
+        z-index: 999; /* opcional: ajuste conforme necessário */
         }
 
 
@@ -53,7 +53,7 @@
         }
 
         .position-absolute-top-right {
-            position: absolute;
+            position: fixed;
             top: 20px;
             right: 240px;
             margin-right: 150px; 
@@ -231,7 +231,7 @@
             
 
                 <script>
-                    // Adicionando um evento de clique no Ã­cone para exibir o menu suspenso
+                    // Adicionando um evento de clique no ícone para exibir o menu suspenso
                     document.querySelector('.dropdown').addEventListener('click', function () {
                         document.querySelector('.dropdown-menu').classList.toggle('show');
                     });
@@ -246,22 +246,24 @@
             <tr>
                 <td>
                     <p>
-                        <a class="dropdown-item" href="#">Padrão: <input type="checkbox" name="colors" value="purple" /><br /></a>
-                        <a class="dropdown-item" href="#">Lista: <input type="checkbox" name="colors" value="purple" /><br /></a>
+                        <form id="selecaoForm"></form>
+                        <a class="dropdown-item" href="#">Padrão: <input type="checkbox" id="modoPadrao" name="modo" value="padrao" /><br /></a>
+                        <a class="dropdown-item" href="#">Lista: <input type="checkbox" id="modoLista" name="modo" value="lista" /><br /></a>
                         <a class="dropdown-item" href="#">
-                            <select name="my_html_select_box">
-                                <option>Grupos</option>
-                                <option>Famí­lia</option>
-                                <option>Amigos</option>
-                                <option>Todos</option>
+                            <select id="grupoSelect" name="my_html_select_box">
+                                <option value="">Grupos</option> <!-- Opção padrão -->
+                                {% for grupo in grupos %}
+                                <option value="{{ grupo.ID_GRUPO }}">{{ grupo.NOME_GRUPO }}</option>
+                                {% endfor %}
                             </select>
                         </a>
                         <a class="dropdown-item" href="#">
-                            <form method="post" action="post">
-                                <input type="submit" value="Aplicar" />
-                            </form>
+                            <input type="button" id="aplicarBtn" value="Aplicar" />
+
                         </a>
+
                     </p>
+                </form>
                 </td>
             </tr>
         </table>
@@ -280,6 +282,32 @@
 
     
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('aplicarBtn').addEventListener('click', function() {
+            var modoPadraoChecked = document.getElementById('modoPadrao').checked;
+            var modoListaChecked = document.getElementById('modoLista').checked;
+            var grupoSelecionado = document.getElementById('grupoSelect').value;
+
+            // Construindo a base da URL de redirecionamento
+            var baseUrl = modoPadraoChecked ? '/calendariopadrao' : modoListaChecked ? '/calendariolista' : null;
+            if (!baseUrl) {
+                alert('Selecione um modo: Padrão ou Lista');
+                return; // Não faz nada se nenhum modo estiver selecionado
+            }
+
+            // Adiciona o parâmetro do grupo à URL, se um grupo estiver selecionado
+            var finalUrl = baseUrl;
+            if (grupoSelecionado) {
+                finalUrl += '?grupo=' + grupoSelecionado;
+            }
+
+            // Redireciona para a URL final
+            window.location.href = finalUrl;
+        });
+    });
+
+
+
             var eventosCalendario = {{ eventos | safe }};
 
             console.log(eventosCalendario);

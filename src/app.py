@@ -163,32 +163,41 @@ def calendariopadrao():
     if not usuario_id:
         return redirect(url_for('index'))
 
+    grupo_selecionado = request.args.get('grupo')  # Obtém o parâmetro de query 'grupo'
+
     cursor = db.cursor(dictionary=True)
     
     try:
-        cursor.execute("SELECT NOME, NASCIMENTO FROM ANIVERSARIO WHERE ID_ANI_USER = %s", (usuario_id,))
+        # Buscar os grupos da base de dados
+        cursor.execute("SELECT ID_GRUPO, NOME_GRUPO FROM GRUPO WHERE ID_GRU_USER = %s", (usuario_id,))
+        grupos = cursor.fetchall()
+
+        # Filtrar aniversários por grupo, se um grupo foi selecionado
+        if grupo_selecionado and grupo_selecionado != 'todos':
+            query = """
+            SELECT ANIVERSARIO.NOME, ANIVERSARIO.NASCIMENTO 
+            FROM ANIVERSARIO 
+            JOIN GRUPO ON ANIVERSARIO.ID_ANI_GRUPO = GRUPO.ID_GRUPO
+            WHERE ANIVERSARIO.ID_ANI_USER = %s AND GRUPO.ID_GRUPO = %s
+            """
+            cursor.execute(query, (usuario_id, grupo_selecionado))
+        else:
+            cursor.execute("SELECT NOME, NASCIMENTO FROM ANIVERSARIO WHERE ID_ANI_USER = %s", (usuario_id,))
+        
         aniversarios = cursor.fetchall()
 
-        # Obtém o ano atual
-        ano_atual = datetime.now().year
-
-        eventos = []
-        for aniversario in aniversarios:
-            # Substitui o ano da data de nascimento pelo ano atual
-            data_aniversario = aniversario['NASCIMENTO']
-            data_aniversario_atualizada = data_aniversario.replace(year=ano_atual)
-
-            eventos.append({
-                'title': aniversario['NOME'],
-                'start': data_aniversario_atualizada.strftime("%Y-%m-%d"),
-                'allDay': True
-            })
+        eventos = [{
+            'title': aniversario['NOME'],
+            'start': aniversario['NASCIMENTO'].replace(year=datetime.now().year).strftime("%Y-%m-%d"),
+            'allDay': True
+        } for aniversario in aniversarios]
 
     finally:
         cursor.close()
 
     # Enviar a lista de eventos para o template
-    return render_template('calendariopadrao.html', eventos=json.dumps(eventos))
+    return render_template('calendariopadrao.html', eventos=json.dumps(eventos), grupos=grupos)
+
 
 @app.route('/adicionar_grupo', methods=['POST'])
 def adicionar_grupo():
@@ -323,32 +332,40 @@ def calendariolista():
     if not usuario_id:
         return redirect(url_for('index'))
 
+    grupo_selecionado = request.args.get('grupo')  # Obtém o parâmetro de query 'grupo'
+
     cursor = db.cursor(dictionary=True)
     
     try:
-        cursor.execute("SELECT NOME, NASCIMENTO FROM ANIVERSARIO WHERE ID_ANI_USER = %s", (usuario_id,))
+        # Buscar os grupos da base de dados
+        cursor.execute("SELECT ID_GRUPO, NOME_GRUPO FROM GRUPO WHERE ID_GRU_USER = %s", (usuario_id,))
+        grupos = cursor.fetchall()
+
+        # Filtrar aniversários por grupo, se um grupo foi selecionado
+        if grupo_selecionado and grupo_selecionado != 'todos':
+            query = """
+            SELECT ANIVERSARIO.NOME, ANIVERSARIO.NASCIMENTO 
+            FROM ANIVERSARIO 
+            JOIN GRUPO ON ANIVERSARIO.ID_ANI_GRUPO = GRUPO.ID_GRUPO
+            WHERE ANIVERSARIO.ID_ANI_USER = %s AND GRUPO.ID_GRUPO = %s
+            """
+            cursor.execute(query, (usuario_id, grupo_selecionado))
+        else:
+            cursor.execute("SELECT NOME, NASCIMENTO FROM ANIVERSARIO WHERE ID_ANI_USER = %s", (usuario_id,))
+        
         aniversarios = cursor.fetchall()
 
-        # Obtém o ano atual
-        ano_atual = datetime.now().year
-
-        eventos = []
-        for aniversario in aniversarios:
-            # Substitui o ano da data de nascimento pelo ano atual
-            data_aniversario = aniversario['NASCIMENTO']
-            data_aniversario_atualizada = data_aniversario.replace(year=ano_atual)
-
-            eventos.append({
-                'title': aniversario['NOME'],
-                'start': data_aniversario_atualizada.strftime("%Y-%m-%d"),
-                'allDay': True
-            })
+        eventos = [{
+            'title': aniversario['NOME'],
+            'start': aniversario['NASCIMENTO'].replace(year=datetime.now().year).strftime("%Y-%m-%d"),
+            'allDay': True
+        } for aniversario in aniversarios]
 
     finally:
         cursor.close()
 
     # Enviar a lista de eventos para o template
-    return render_template('calendariolista.html', eventos=json.dumps(eventos))
+    return render_template('calendariolista.html', eventos=json.dumps(eventos), grupos=grupos)
 
 if __name__ == '__main__':
     app.run(debug=True)
