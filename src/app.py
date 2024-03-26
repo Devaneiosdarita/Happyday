@@ -285,22 +285,12 @@ def enviar_problema():
 
     # Configurar o corpo do e-mail com o assunto e a mensagem do formulário
     corpo_email = f'<p><strong>Assunto:</strong><br>{assunto_formulario}</p><p><strong>Mensagem:</strong><br>{mensagem_formulario}</p>'
-
-    # Localização do arquivo que contém a senha
-    caminho_arquivo_senha = "C:/Users/User/Desktop/happyday.txt"
-
-    # Tente abrir o arquivo e ler a senha
-    try:
-        with open(caminho_arquivo_senha, 'r') as arquivo:
-            senha = arquivo.read().strip()  # Ler o conteúdo do arquivo e remover espaços em branco extras
-    except FileNotFoundError:
-        flash("Falha no envio.", "error")
-        return redirect(url_for('apoioaocliente'))
-
+ 
     # Configurar os detalhes do servidor SMTP e as credenciais do remetente
     remetente_email = 'joaofonseca19990@gmail.com'
     destinatario_email = 'josemalves1992@gmail.com'
-
+    senha = 'ljkpkbsxagyjjufa'
+    
     # Configurar o servidor SMTP do Gmail
     servidor_smtp = smtplib.SMTP('smtp.gmail.com', 587)
     servidor_smtp.starttls()
