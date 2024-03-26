@@ -3,6 +3,8 @@ import mysql.connector
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+import json
+
 
 app = Flask(__name__, static_folder='static')
 app.secret_key = 'aviso'
@@ -12,7 +14,7 @@ app.secret_key = 'aviso'
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="1234",
+    password="", #1234
     database="happyday"
 )
 
@@ -129,11 +131,58 @@ def aniversariante():
     return render_template('aniversariante.html', grupos=grupos)
 
     
-
-@app.route('/calendariopadrao', methods=['GET', 'POST'])
+'''
+@app.route('/calendariopadrao', methods=['GET'])
 def calendariopadrao():
-      
-    return render_template('calendariopadrao.html')
+    # Verifica se o usuário está logado
+    usuario_id = session.get('usuario_id')
+    if not usuario_id:
+        # Se não estiver logado, redireciona para a página de login
+        flash("Você precisa estar logado para acessar esta página.", "warning")
+        return redirect(url_for('index'))
+    
+    # Prepara a consulta ao banco de dados
+    cursor = db.cursor(dictionary=True)
+    
+    try:
+        # Seleciona os aniversários relacionados ao usuário logado
+        cursor.execute("SELECT * FROM ANIVERSARIO WHERE ID_ANI_USER = %s", (usuario_id,))
+        aniversarios = cursor.fetchall()
+    except mysql.connector.Error as err:
+        flash(f"Erro ao buscar aniversários: {err}", "error")
+        aniversarios = []
+    finally:
+        cursor.close()
+    
+    # Passa a lista de aniversários para o template
+    return render_template('calendariopadrao.html', aniversarios=aniversarios)
+'''
+@app.route('/calendariopadrao', methods=['GET'])
+def calendariopadrao():
+    usuario_id = session.get('usuario_id')
+    if not usuario_id:
+        return redirect(url_for('index'))
+
+    cursor = db.cursor(dictionary=True)
+    
+    try:
+        cursor.execute("SELECT NOME, NASCIMENTO FROM ANIVERSARIO WHERE ID_ANI_USER = %s", (usuario_id,))
+        aniversarios = cursor.fetchall()
+
+        # Convertendo para o formato esperado pelo FullCalendar
+        eventos = [
+            {
+                'title': aniversario['NOME'],
+                'start': aniversario['NASCIMENTO'].strftime("%Y-%m-%d"),
+                'allDay': True
+            }
+            for aniversario in aniversarios
+        ]
+    finally:
+        cursor.close()
+
+    # Enviar a lista de eventos para o template
+    return render_template('calendariopadrao.html', eventos=json.dumps(eventos))
 
 @app.route('/adicionar_grupo', methods=['POST'])
 def adicionar_grupo():

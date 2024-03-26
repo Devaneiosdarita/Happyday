@@ -277,7 +277,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{{ url_for('static', filename='javascript.js') }}"></script>
     <!--<script src="../static/javascript.js"></script>-->
+
+    
     <script>
+            var eventosCalendario = {{ eventos | safe }};
+
+            console.log(eventosCalendario);
         
     const button = document.getElementById('myButton');
     const content = document.getElementById('buttonContent');
@@ -329,13 +334,14 @@
 	
 		/* initialize the calendar
 		-----------------------------------------------------------------*/
-		
+
 		var calendar =  $('#calendar').fullCalendar({
 			header: {
 				left: 'title',
 				center: 'month',
 				right: 'prev,next today'
 			},
+            events: eventosCalendario,
 			editable: true,
 			firstDay: 1, //  1(Monday) this can be changed to 0(Sunday) for the USA system
 			selectable: true,
@@ -356,7 +362,7 @@
 			allDaySlot: false,
 			selectHelper: true,
 			select: function(start, end, allDay) {
-				var title = prompt('Event Title:');
+				/*var title = prompt('Event Title:');
 				if (title) {
 					calendar.fullCalendar('renderEvent',
 						{
@@ -368,7 +374,7 @@
 						true // make the event "stick"
 					);
 				}
-				calendar.fullCalendar('unselect');
+				calendar.fullCalendar('unselect');*/
 			},
 			droppable: true, // this allows things to be dropped onto the calendar !!!
 			drop: function(date, allDay) { // this function is called when something is dropped
