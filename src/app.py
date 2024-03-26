@@ -5,10 +5,11 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import json
 from datetime import datetime
+from flask_apscheduler import APScheduler
 
 app = Flask(__name__, static_folder='static')
 app.secret_key = 'aviso'
-
+scheduler = APScheduler()
 
 # Conectar ao banco de dados MySQL
 db = mysql.connector.connect(
@@ -357,5 +358,94 @@ def calendariolista():
     # Enviar a lista de eventos para o template
     return render_template('calendariolista.html', eventos=json.dumps(eventos), grupos=grupos)
 
+def enviar_emails_aniversario():
+    # Conecta ao banco de dados
+    cursor = db.cursor(dictionary=True)
+
+    # Busca todos os usuários
+    cursor.execute("SELECT ID_USER, EMAIL FROM USUARIO")
+    usuarios = cursor.fetchall()
+
+    mes_atual = datetime.now().month
+
+    for usuario in usuarios:
+        # Busca aniversários do usuário para o mês atual
+        cursor.execute("""
+            SELECT NOME, DAY(NASCIMENTO) AS DIA 
+            FROM ANIVERSARIO 
+            WHERE ID_ANI_USER = %s AND MONTH(NASCIMENTO) = %s
+        """, (usuario['ID_USER'], mes_atual))
+
+        aniversarios = cursor.fetchall()
+
+        print("---->")
+
+        if aniversarios:
+            mensagem_html = "<h4>Olá, aqui estão os aniversários do mês:</h4><ul>"
+            for aniversario in aniversarios:
+                mensagem_html += f"<li>{aniversario['NOME']} - dia {aniversario['DIA']}</li>"
+            mensagem_html += "</ul>"
+
+            enviar_email(usuario['EMAIL'], "Aniversários do Mês", mensagem_html)
+
+def enviar_emails_aniversario():
+    # Conecta ao banco de dados
+    cursor = db.cursor(dictionary=True)
+
+    # Busca todos os usuários
+    cursor.execute("SELECT ID_USER, EMAIL FROM USUARIO")
+    usuarios = cursor.fetchall()
+
+    mes_atual = datetime.now().month
+
+    for usuario in usuarios:
+        # Busca aniversários do usuário para o mês atual
+        cursor.execute("""
+            SELECT NOME, DAY(NASCIMENTO) AS DIA 
+            FROM ANIVERSARIO 
+            WHERE ID_ANI_USER = %s AND MONTH(NASCIMENTO) = %s
+        """, (usuario['ID_USER'], mes_atual))
+
+        aniversarios = cursor.fetchall()
+
+        print("---->")
+
+        if aniversarios:
+            mensagem_html = "<h4>Olá, aqui estão os aniversários do mês:</h4><ul>"
+            for aniversario in aniversarios:
+                mensagem_html += f"<li>{aniversario['NOME']} - dia {aniversario['DIA']}</li>"
+            mensagem_html += "</ul>"
+
+            enviar_email(usuario['EMAIL'], "Aniversários do Mês", mensagem_html)
+
+def enviar_email(destinatario, assunto, corpo_html):
+    remetente = "joaofonseca19990@gmail.com"
+    senha = "ljkpkbsxagyjjufa"
+
+    # Configuração do e-mail
+    msg = MIMEMultipart()
+    msg['From'] = remetente
+    msg['To'] = destinatario
+    msg['Subject'] = assunto
+    msg.attach(MIMEText(corpo_html, 'html'))
+
+    # Envia o e-mail
+    with smtplib.SMTP('smtp.gmail.com', 587) as server:
+        print("---->3")
+        server.starttls()
+        server.login(remetente, senha)
+        server.send_message(msg)
+        server.quit()
+
 if __name__ == '__main__':
+    scheduler.init_app(app)
+    scheduler.start()
+
+    #-->Testar a função sem o scheduler
+    #enviar_emails_aniversario()
+    
+    # Agendar 'enviar_emails_aniversario' para rodar no 1º dia de cada mês
+    scheduler.add_job(id='Enviar Aniversarios', func=enviar_emails_aniversario, trigger='cron', day=1, hour=0, minute=0)
+ 
+
     app.run(debug=True)
