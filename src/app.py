@@ -4,7 +4,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import json
-
+from datetime import datetime
 
 app = Flask(__name__, static_folder='static')
 app.secret_key = 'aviso'
@@ -169,15 +169,21 @@ def calendariopadrao():
         cursor.execute("SELECT NOME, NASCIMENTO FROM ANIVERSARIO WHERE ID_ANI_USER = %s", (usuario_id,))
         aniversarios = cursor.fetchall()
 
-        # Convertendo para o formato esperado pelo FullCalendar
-        eventos = [
-            {
+        # Obtém o ano atual
+        ano_atual = datetime.now().year
+
+        eventos = []
+        for aniversario in aniversarios:
+            # Substitui o ano da data de nascimento pelo ano atual
+            data_aniversario = aniversario['NASCIMENTO']
+            data_aniversario_atualizada = data_aniversario.replace(year=ano_atual)
+
+            eventos.append({
                 'title': aniversario['NOME'],
-                'start': aniversario['NASCIMENTO'].strftime("%Y-%m-%d"),
+                'start': data_aniversario_atualizada.strftime("%Y-%m-%d"),
                 'allDay': True
-            }
-            for aniversario in aniversarios
-        ]
+            })
+
     finally:
         cursor.close()
 
@@ -311,9 +317,38 @@ def enviar_problema():
     flash("Solicitação de suporte enviada com sucesso!", "success")
     return redirect(url_for('apoioaocliente'))
 
-@app.route('/calendariolista')
+@app.route('/calendariolista', methods=['GET'])
 def calendariolista():
-    return render_template('calendariolista.html')
+    usuario_id = session.get('usuario_id')
+    if not usuario_id:
+        return redirect(url_for('index'))
+
+    cursor = db.cursor(dictionary=True)
+    
+    try:
+        cursor.execute("SELECT NOME, NASCIMENTO FROM ANIVERSARIO WHERE ID_ANI_USER = %s", (usuario_id,))
+        aniversarios = cursor.fetchall()
+
+        # Obtém o ano atual
+        ano_atual = datetime.now().year
+
+        eventos = []
+        for aniversario in aniversarios:
+            # Substitui o ano da data de nascimento pelo ano atual
+            data_aniversario = aniversario['NASCIMENTO']
+            data_aniversario_atualizada = data_aniversario.replace(year=ano_atual)
+
+            eventos.append({
+                'title': aniversario['NOME'],
+                'start': data_aniversario_atualizada.strftime("%Y-%m-%d"),
+                'allDay': True
+            })
+
+    finally:
+        cursor.close()
+
+    # Enviar a lista de eventos para o template
+    return render_template('calendariolista.html', eventos=json.dumps(eventos))
 
 if __name__ == '__main__':
     app.run(debug=True)
