@@ -51,10 +51,10 @@ Este projeto está aberto a contribuições. Se você deseja contribuir com novo
 
 Para mais informações, entre em contato com o desenvolvedor:
 
-Desenvolvedor: Ana Rita, Franciellen, José Alves e Lorena Saracho
+Desenvolvedor: Ana Rita, Franciellen Cruz, José Alves e Lorena Saracho
 E-mail: 
     
-    
+    fs.cruz@hotmail.com
     lologoldner@gmail.com
 
 Nota: Este aplicativo é fornecido "no estado em que se encontra", sem garantias de qualquer tipo. Use por sua própria conta e risco.
