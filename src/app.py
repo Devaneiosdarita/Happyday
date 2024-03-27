@@ -15,7 +15,7 @@ scheduler = APScheduler()
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="", #1234
+    password="1234", #1234
     database="happyday"
 )
 
@@ -303,7 +303,7 @@ def enviar_problema():
  
     # Configurar os detalhes do servidor SMTP e as credenciais do remetente
     remetente_email = 'joaofonseca19990@gmail.com'
-    destinatario_email = 'josemalves1992@gmail.com'
+    destinatario_email = 'lologoldner@gmail.com'
     senha = 'ljkpkbsxagyjjufa'
     
     # Configurar o servidor SMTP do Gmail
