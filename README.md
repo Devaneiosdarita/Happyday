@@ -51,9 +51,10 @@ Este projeto está aberto a contribuições. Se você deseja contribuir com novo
 
 Para mais informações, entre em contato com o desenvolvedor:
 
-Desenvolvedor: Ana Rita, Franciellen Cruz, José Alves e Lorena Saracho
+Desenvolvedor: Ana Rita Batista, Franciellen Cruz, José Alves e Lorena Saracho
 E-mail: 
-    
+
+    ritalmeida.batista@gmail.com
     fs.cruz@hotmail.com
     lologoldner@gmail.com
 
