@@ -187,11 +187,25 @@ def calendariopadrao():
         
         aniversarios = cursor.fetchall()
 
-        eventos = [{
-            'title': aniversario['NOME'],
-            'start': aniversario['NASCIMENTO'].replace(year=datetime.now().year).strftime("%Y-%m-%d"),
-            'allDay': True
-        } for aniversario in aniversarios]
+        eventos = []
+        # Adicionar eventos para o ano atual e o ano seguinte
+        for aniversario in aniversarios:
+            # Marcação no calendário para o ano atual
+            evento_atual = {
+                'title': aniversario['NOME'],
+                'start': aniversario['NASCIMENTO'].replace(year=datetime.now().year).strftime("%Y-%m-%d"),
+                'allDay': True
+            }
+            eventos.append(evento_atual)
+
+            # Marcação no calendário para o ano seguinte
+            proximo_ano = datetime.now().year + 1
+            evento_proximo_ano = {
+                'title': aniversario['NOME'],
+                'start': aniversario['NASCIMENTO'].replace(year=proximo_ano).strftime("%Y-%m-%d"),
+                'allDay': True
+            }
+            eventos.append(evento_proximo_ano)
 
     finally:
         cursor.close()
@@ -346,11 +360,29 @@ def calendariolista():
         
         aniversarios = cursor.fetchall()
 
-        eventos = [{
-            'title': aniversario['NOME'],
-            'start': aniversario['NASCIMENTO'].replace(year=datetime.now().year).strftime("%Y-%m-%d"),
-            'allDay': True
-        } for aniversario in aniversarios]
+        eventos = []
+
+        # Obtém o ano atual
+        ano_atual = datetime.now().year
+
+        # Adiciona eventos para o ano atual e o próximo ano
+        for aniversario in aniversarios:
+            # Cria evento para o ano atual
+            evento_atual = {
+                'title': aniversario['NOME'],
+                'start': aniversario['NASCIMENTO'].replace(year=ano_atual).strftime("%Y-%m-%d"),
+                'allDay': True
+            }
+            eventos.append(evento_atual)
+
+            # Cria evento para o próximo ano
+            proximo_ano = ano_atual + 1
+            evento_proximo_ano = {
+                'title': aniversario['NOME'],
+                'start': aniversario['NASCIMENTO'].replace(year=proximo_ano).strftime("%Y-%m-%d"),
+                'allDay': True
+            }
+            eventos.append(evento_proximo_ano)
 
     finally:
         cursor.close()
