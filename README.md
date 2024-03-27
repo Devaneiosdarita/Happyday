@@ -54,6 +54,7 @@ Para mais informações, entre em contato com o desenvolvedor:
 Desenvolvedor: Ana Rita Batista, Franciellen Cruz, José Alves e Lorena Saracho
 E-mail: 
 
+    josemalves1992@gmail.com
     ritalmeida.batista@gmail.com
     fs.cruz@hotmail.com
     lologoldner@gmail.com
