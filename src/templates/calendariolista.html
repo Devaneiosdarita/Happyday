@@ -140,8 +140,8 @@
         }   
         
         #wrap {
-		    width: 1100px;
-		    margin: 0 auto;
+		    width: 1600px; /* largura do calendário */
+            margin: -40px; /* isso centraliza horizontalmente */
 		}
 		
 	    #external-events {
@@ -198,7 +198,7 @@
 
         .fc-button-next:hover {
             background-color: #ffe3e3;
-        }
+        } 
         
     </style>
 </head>
@@ -233,16 +233,16 @@
                  </div>                   
              </button>
              </div>
-                     </header>
-        </div>
+            </header>
+    </div>
 
         <div class="row">
             <div class="col-md-6 offset-md-3 mt-5">
-                <h2 class="text-left">Calendário</h2>
+                <h2 class="text-left">Calendário Semanal</h2>
             </div>
 
 
-            <div id='wrap'>
+            <div id='wrap'style='margin-top: 135px;'>
 
                 <div id='calendar'></div>
                 
@@ -258,24 +258,20 @@
                     </div>   
                 </a>
             </div>     
-        
-     
-                <script>
-                    // Adicionando um evento de clique no ícone para exibir o menu suspenso
-                    document.querySelector('.dropdown').addEventListener('click', function () {
-                        document.querySelector('.dropdown-menu').classList.toggle('show');
-                    });
-                </script>
 
-
-
+            <script>
+                // Adicionando um evento de clique no ícone para exibir o menu suspenso
+                document.querySelector('.dropdown').addEventListener('click', function () {
+                    document.querySelector('.dropdown-menu').classList.toggle('show');
+                });
+            </script>
 
             <div class="dropdown position-fixed-top-right" style="margin-top: 152px;margin-right: -3px;    z-index: 1000;">
                 
                   
                 
-                <div id="buttonContent" class="hidden" style="border: 2px solid #301C48; padding: 32px; background-color: #301C48;">
-                    <table height="100" width="150" style="margin-right: 0px; background-color: #301C48;">
+                <div id="buttonContent" class="hidden" style="border: 2px solid #301C48; padding: 8px; background-color: #301C48;">
+                    <table height="50" width="30" style="margin-right: 0px; background-color: #301C48;">
                         <tr>
                             <td>
                                 <p>
@@ -311,6 +307,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{{ url_for('static', filename='Franjavascript.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <!--<script src="../static/Franjavascript.js"></script>-->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
