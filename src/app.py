@@ -267,9 +267,11 @@ def definicoes():
 
 @app.route('/alterar_definicoes', methods=['POST'])
 def alterar_definicoes():
+    novo_nome = request.form['nome-utilizador']
     nova_senha = request.form['nova-password']
     confirmar_senha = request.form['confirmar-nova-password']
 
+    # Verifica se a senha e a confirmação coincidem
     if nova_senha != confirmar_senha:
         flash("As senhas não coincidem. Por favor, tente novamente.", "error")
         return redirect(url_for('definicoes'))
@@ -277,13 +279,21 @@ def alterar_definicoes():
     try:
         usuario_id = session.get('usuario_id')
         cursor = db.cursor()
-        cursor.execute("UPDATE USUARIO SET SENHA = %s WHERE ID_USER = %s", (nova_senha, usuario_id))
+
+        # Atualiza o nome de usuário, se houver uma alteração
+        if novo_nome:
+            cursor.execute("UPDATE USUARIO SET NOME = %s WHERE ID_USER = %s", (novo_nome, usuario_id))
+
+        # Atualiza a senha, se houver uma alteração
+        if nova_senha:
+            cursor.execute("UPDATE USUARIO SET SENHA = %s WHERE ID_USER = %s", (nova_senha, usuario_id))
+
         db.commit()
         cursor.close()
-        flash("Senha alterada com sucesso.", "success")
+        flash("Alterações salvas com sucesso.", "success")
         return redirect(url_for('index'))
     except mysql.connector.Error as err:
-        flash(f"Erro ao atualizar senha: {err}", "error")
+        flash(f"Erro ao atualizar informações: {err}", "error")
         return redirect(url_for('definicoes'))
 
 @app.route('/apoioaocliente')
